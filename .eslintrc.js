@@ -31,5 +31,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
+    // Vue
+    'vue/multi-word-component-names': 0, // Prevent "Index" name component
   },
 }

@@ -1,0 +1,52 @@
+import puppeteer from 'puppeteer'
+import $ from 'cheerio'
+import isDev from 'electron-is-dev'
+
+export const scraping = async () => {
+  // Launch browser
+  const browser = await puppeteer.launch({
+    // devtools: isDev
+    // headless: true,
+  })
+  // Open page
+  const page = await browser.newPage()
+  // Move to url
+  await page.goto('https://www.amazon.ca', {
+    waitUntil: 'networkidle2',
+  })
+
+  /* Search with input */
+  /* Search with input */
+  await page.waitForSelector('#twotabsearchtextbox')
+  // Add input data to serach input field
+  await page.$eval('#twotabsearchtextbox', el => (el as HTMLInputElement).value = 'silent red switches')
+  // Press search button
+  await page.click('#nav-search-submit-button')
+  await page.waitForNavigation({
+    waitUntil: 'networkidle2'
+  })
+  // Get the page DOM
+  const pageHTML = await page.evaluate(() => document.body.innerHTML)
+  // Use Cheerio to phaser DOM
+  const result: Record<string, any>[] = []
+  $('div[data-component-type="s-search-result"]', pageHTML).each((i, el) => {
+    // Get price symbol
+    const priceSymbol = $(el).find('.a-price-symbol').text()
+    // Get sale and original price
+    const foundPriceWhole = $(el).find('.a-offscreen')
+    const priceWhole = foundPriceWhole.length >= 2 ? foundPriceWhole.last().text() : ''
+    const salePriceWhole = foundPriceWhole.length >= 2 ? foundPriceWhole.first().text() : foundPriceWhole.text()
+    // Get the tile
+    const title = $(el).find('[class="a-size-base-plus a-color-base a-text-normal"]').text()
+
+    result.push({
+      title,
+      priceSymbol,
+      salePriceWhole,
+      priceWhole,
+    })
+  })
+  await browser.close()
+
+  return result
+}

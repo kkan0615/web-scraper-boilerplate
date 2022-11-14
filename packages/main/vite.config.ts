@@ -19,11 +19,12 @@ export default defineConfig({
       // Define the build format, Electron support CJS.
       formats: ['cjs'],
     },
-
     rollupOptions: {
       external: [
         // Once again exclude Electron from build output.
         'electron',
+        'puppeteer',
+        'cheerio',
         // Exclude Node builtin modules.
         ...builtinModules.flatMap((p) => [p, `node:${p}`]),
       ],
