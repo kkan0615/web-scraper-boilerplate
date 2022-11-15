@@ -15,7 +15,7 @@ export default defineConfig({
     // Quasar UI framework
     quasar({
       sassVariables: Path.join(__dirname, 'src/styles/quasar/variables.sass')
-    })
+    }),
   ],
   root: __dirname,
   base: process.env.IS_DEV !== 'true' ? './' : '/',
@@ -27,13 +27,17 @@ export default defineConfig({
     rollupOptions: {
       input: join(__dirname, 'index.html'),
       // Exclude node internal modules from build output.
-      external: [...builtinModules.flatMap((p) => [p, `node:${p}`])],
+      external: [
+        ...builtinModules.flatMap((p) => [p, `node:${p}`])
+      ],
     },
   },
   resolve: {
-    alias: [{
-      find: '@',
-      replacement: join(__dirname, 'src'),
-    }]
+    alias: [
+      {
+        find: '@',
+        replacement: join(__dirname, 'src'),
+      },
+    ]
   }
 })
