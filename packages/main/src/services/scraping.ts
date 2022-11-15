@@ -46,6 +46,7 @@ export const scraping = async () => {
       priceWhole,
     })
   })
+
   await browser.close()
 
   return result

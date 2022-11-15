@@ -25,6 +25,7 @@ export default defineConfig({
         'electron',
         'puppeteer',
         'cheerio',
+        'ExcelJS',
         // Exclude Node builtin modules.
         ...builtinModules.flatMap((p) => [p, `node:${p}`]),
       ],

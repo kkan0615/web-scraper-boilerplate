@@ -32,7 +32,8 @@ const loading = ref(false)
 const handleTest = async () => {
   try {
     loading.value = true
-    console.log(await invoke('scraping'))
+    // console.log(await invoke('scraping'))
+    await (invoke('test'))
   } catch (e) {
     console.error(e)
   } finally {
