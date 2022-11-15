@@ -1,13 +1,21 @@
 <template>
-  <div>
-    <div>
-      loading: {{ loading }}
-    </div>
-    <button
-      @click="handleTest"
+  <div
+    class="flex flex-center"
+    style="height: 100vh"
+  >
+    <div
+      class="text-center"
     >
-      Test
-    </button>
+      <div>
+        Press to button to scrapping
+      </div>
+      <q-btn
+        :loading="loading"
+        @click="handleTest"
+      >
+        Test
+      </q-btn>
+    </div>
   </div>
 </template>
 <script setup lang="ts">

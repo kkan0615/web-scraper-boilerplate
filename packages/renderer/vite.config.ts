@@ -3,9 +3,20 @@ import { join } from 'path'
 import { builtinModules } from 'module'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { quasar, transformAssetUrls } from '@quasar/vite-plugin'
+import * as Path from 'path'
 
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue({
+      // Quasar UI framework
+      template: { transformAssetUrls }
+    }),
+    // Quasar UI framework
+    quasar({
+      sassVariables: Path.join(__dirname, 'src/styles/quasar/variables.sass')
+    })
+  ],
   root: __dirname,
   base: process.env.IS_DEV !== 'true' ? './' : '/',
   build: {
