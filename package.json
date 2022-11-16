@@ -1,7 +1,7 @@
 {
   "name": "vue3-test",
   "author": "Youngin Kwak",
-  "version": "0.0.8",
+  "version": "0.0.2",
   "private": true,
   "main": "./dist/main/main.cjs",
   "scripts": {
@@ -72,6 +72,7 @@
     "winston": "^3.8.1"
   },
   "devDependencies": {
+    "@iconify/vue": "^4.0.0",
     "@quasar/vite-plugin": "^1.2.3",
     "@types/electron": "^1.6.10",
     "@types/node": "^17.0.41",

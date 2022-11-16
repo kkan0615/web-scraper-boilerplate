@@ -86,5 +86,18 @@ yarn build
 - [twstyled](https://github.com/twstyled/electron-vite-react)
 
 # Todo
-- Add auto-update
-- Logger for system
+## Main
+- Add electron-store
+  - filename
+  - schedules
+- Export
+  - PDF
+  - CSV
+  - XLSX
+  - TXT
+- Add schedule feature
+- Tray and program off by tray "exit"
+## Renderer
+- setting page
+  - Download path
+  - checkbox - Turn on when computer is booted 

@@ -1,11 +1,19 @@
-const enDictionary = {
+const common = {
   test: 'Hello World',
   commons: {
-    Tooltips: {
+    tooltips: {
       search: 'search',
       edit: 'edit',
       delete: 'delete',
       ok: 'ok',
+      fileExts: {
+        downloads: {
+          pdf: 'download as .pdf',
+          csv: 'download as .csv',
+          xlsx: 'download as .xlsx',
+          txt: 'download as .text',
+        }
+      }
     },
     btns: {
       create: 'create',
@@ -58,15 +66,21 @@ const enDictionary = {
     labels: {
       action: 'action',
     },
-  },
-  types: {
-    models: {
-      views: {
-        item: {
-          name: 'name',
+    types: {
+      models: {
+        views: {
+          item  : {
+            name: 'name',
+          },
         },
       },
     },
+  },
+}
+
+const own = {
+  tooltips: {
+    startScrapping: 'start to scrapping'
   },
   views: {
     Home: {
@@ -74,6 +88,11 @@ const enDictionary = {
       scrapping: 'Scrapping'
     },
   },
+}
+
+const enDictionary = {
+  ...common,
+  ...own,
 }
 
 export default enDictionary
