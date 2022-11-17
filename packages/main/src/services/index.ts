@@ -1,9 +1,10 @@
 import './hello'
 import { ipcMain } from 'electron'
-import { scraping } from './scraping'
+import { scraping, scrapingImages } from './scraping'
 import { exportToExcel, exportToTxt } from '../utils/export'
 
 ipcMain.handle('scraping', scraping)
+ipcMain.handle('scrapping-images', scrapingImages)
 ipcMain.handle('export-to-csv', async () => {
   await exportToExcel({
     fileName: 'awesome-test',

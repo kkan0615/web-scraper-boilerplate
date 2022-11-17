@@ -1,6 +1,9 @@
 import puppeteer from 'puppeteer'
 import $ from 'cheerio'
 import isDev from 'electron-is-dev'
+import axios from 'axios'
+import fs from 'fs/promises'
+import { app } from 'electron'
 
 export const scraping = async () => {
   // Launch browser
@@ -50,4 +53,42 @@ export const scraping = async () => {
   await browser.close()
 
   return result
+}
+
+export const scrapingImages = async () => {
+  try {
+    // Launch browser
+    const browser = await puppeteer.launch({
+      // devtools: isDev
+      // headless: true,
+    })
+    // Open page
+    const page = await browser.newPage()
+    // Move to url
+    await page.goto('', {
+      waitUntil: 'networkidle2',
+    })
+
+    let result: Buffer[] = []
+    // Get the page DOM
+    const pageHTML = await page.evaluate(() => document.body.innerHTML)
+    await fs.mkdir(`${app.getPath('downloads')}/output`)
+    $('img', pageHTML).map( async (i, el) => {
+      // Get price symbol
+      let src = $(el).attr('src')
+      if(src && src.split('.')[1] !== 'svg') {
+        const res = await axios.get(src, {
+          responseType: 'arraybuffer'
+        })
+
+        await fs.writeFile(`${app.getPath('downloads')}/output/image (${i}).png`, res.data)
+      }
+    })
+
+    await browser.close()
+    return result
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
 }

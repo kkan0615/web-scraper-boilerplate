@@ -55,5 +55,3 @@ export const exportToTxt = async (arg: {fileName: string, data: any[]}) => {
   }
   await fs.writeFile(filePath, fileContent)
 }
-
-

@@ -119,7 +119,8 @@ const scrapping = async () => {
   try {
     loading.value = true
     createTimer()
-    const res = await invoke('scraping')
+    // const res = await invoke('scraping')
+    const res = await invoke('scrapping-images')
     console.log(res)
     // Prevent multiple click after
   } catch (e) {
