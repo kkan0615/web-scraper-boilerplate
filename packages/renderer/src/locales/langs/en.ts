@@ -6,14 +6,7 @@ const common = {
       edit: 'edit',
       delete: 'delete',
       ok: 'ok',
-      fileExts: {
-        downloads: {
-          pdf: 'download as .pdf',
-          csv: 'download as .csv',
-          xlsx: 'download as .xlsx',
-          txt: 'download as .text',
-        }
-      }
+      back: 'back'
     },
     btns: {
       create: 'create',
@@ -80,7 +73,24 @@ const common = {
 
 const own = {
   tooltips: {
-    startScrapping: 'start to scrapping'
+    startScrapping: 'start to scrapping',
+    fileExts: {
+      downloads: {
+        pdf: 'download as .pdf',
+        csv: 'download as .csv',
+        xlsx: 'download as .xlsx',
+        txt: 'download as .text',
+      }
+    },
+    menus: {
+      setting: 'go to setting page',
+    }
+  },
+  titles: {
+    menus: {
+      settingGeneral: 'general',
+      settingScrapping: 'scrapping',
+    }
   },
   views: {
     Home: {
