@@ -11,7 +11,6 @@ export const createAppWindow = async () => {
     width: 1280,
     height: 720,
     webPreferences: {
-      webviewTag: false,
       nodeIntegration: false,
       contextIsolation: true,
       // Electron current directory will be at `dist/main`, we need to include

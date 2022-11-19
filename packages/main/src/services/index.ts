@@ -1,8 +1,21 @@
-import './hello'
-import { ipcMain } from 'electron'
+import { app, ipcMain, dialog, OpenDialogOptions } from 'electron'
 import { scraping, scrapingImages } from './scraping'
 import { exportToExcel, exportToTxt } from '../utils/export'
+import { getAppSetting, setAppSetting } from '../stores/setting'
+import { AppSetting } from '../types/appSetting'
 
+ipcMain.handle('get-path', async (event, arg: 'home' | 'appData' | 'userData' | 'cache' | 'temp' | 'exe' | 'module' | 'desktop' | 'documents' | 'downloads' | 'music' | 'pictures' | 'videos' | 'recent' | 'logs' | 'crashDumps') => {
+  return app.getPath(arg)
+})
+ipcMain.handle('show-open-dialog', async (event, args: OpenDialogOptions) => {
+  return await dialog.showOpenDialog(args)
+})
+ipcMain.handle('get-app-setting', () => {
+  return getAppSetting()
+})
+ipcMain.handle('set-app-setting', (event, args: Partial<AppSetting>) => {
+  return setAppSetting(args)
+})
 ipcMain.handle('scraping', scraping)
 ipcMain.handle('scrapping-images', scrapingImages)
 ipcMain.handle('export-to-csv', async () => {

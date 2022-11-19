@@ -16,6 +16,7 @@ const common = {
       delete: 'delete',
       search: 'search',
       send: 'send',
+      reset: 'reset',
       copyURL: 'copy URL',
       start: 'start',
     },
@@ -90,6 +91,16 @@ const own = {
     menus: {
       settingGeneral: 'general',
       settingScrapping: 'scrapping',
+    },
+
+  },
+  types: {
+    appSetting: {
+      autoLaunch: 'auto launch',
+      downloadPath: 'download path',
+      labels: {
+        autoLaunch: 'Launch App when you boot computer'
+      }
     }
   },
   views: {
