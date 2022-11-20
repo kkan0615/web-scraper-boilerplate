@@ -5,6 +5,7 @@
     <div
       class="q-gutter-md"
     >
+      <!-- General -->
       <div>
         <div
           class="text-h6 text-capitalize"
@@ -17,6 +18,7 @@
           @update:model-value="handleAutoLaunch"
         />
       </div>
+      <!-- Download path -->
       <div>
         <div
           class="text-h6 text-capitalize"

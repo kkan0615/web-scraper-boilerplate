@@ -28,9 +28,8 @@
     <q-list>
       <q-item
         :to="{ name: 'SettingGeneral' }"
-        :class="{'bg-secondary': currRouteName === 'SettingGeneral'}"
         clickable
-        active-class="text-white"
+        active-class="menu-active-link"
       >
         <q-item-section avatar>
           <q-icon name="drafts" />
@@ -44,9 +43,8 @@
       </q-item>
       <q-item
         :to="{ name: 'SettingScrapping' }"
-        :class="{'bg-secondary': currRouteName === 'SettingScrapping'}"
         clickable
-        active-class="text-white"
+        active-class="menu-active-link"
       >
         <q-item-section avatar>
           <q-icon name="drafts" />
@@ -56,6 +54,21 @@
           class="text-capitalize"
         >
           {{ t('titles.menus.settingScrapping') }}
+        </q-item-section>
+      </q-item>
+      <q-item
+        :to="{ name: 'SettingVersion' }"
+        clickable
+        active-class="menu-active-link"
+      >
+        <q-item-section avatar>
+          <q-icon name="drafts" />
+        </q-item-section>
+
+        <q-item-section
+          class="text-capitalize"
+        >
+          {{ t('titles.menus.settingVersion') }}
         </q-item-section>
       </q-item>
     </q-list>
@@ -74,6 +87,8 @@ const open = ref(true)
 
 const currRouteName = computed(() => route.name)
 </script>
-<style>
-
+<style
+  lang="scss"
+>
+@import "./Drawer.scss";
 </style>

@@ -91,6 +91,7 @@ const own = {
     menus: {
       settingGeneral: 'general',
       settingScrapping: 'scrapping',
+      settingVersion: 'version',
     },
 
   },

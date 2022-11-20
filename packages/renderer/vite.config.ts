@@ -14,7 +14,7 @@ export default defineConfig({
     }),
     // Quasar UI framework
     quasar({
-      sassVariables: Path.join(__dirname, 'src/styles/quasar/variables.sass')
+      sassVariables: Path.join(__dirname, 'src/styles/quasar/variables.scss')
     }),
   ],
   root: __dirname,
