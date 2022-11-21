@@ -21,6 +21,8 @@ const common = {
       start: 'start',
     },
     titles: {
+      version: 'version',
+      currentVersion: 'current version',
       cancel: 'cancel',
       delete: 'delete',
       total: 'total',
@@ -28,7 +30,8 @@ const common = {
       comment: 'comment',
       information: 'information',
       overview: 'overview',
-      language: 'language'
+      language: 'language',
+      about: 'about',
     },
     messages: {
       cancelSave: 'Would you like to cancel save?',

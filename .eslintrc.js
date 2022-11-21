@@ -10,6 +10,7 @@ module.exports = {
   ],
   globals: {
     'NodeJS': true,
+    '__APP_VERSION__': true,
   },
   env: {
     node: true,

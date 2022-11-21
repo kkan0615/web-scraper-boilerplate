@@ -32,7 +32,7 @@
         active-class="menu-active-link"
       >
         <q-item-section avatar>
-          <q-icon name="drafts" />
+          <q-icon name="settings" />
         </q-item-section>
 
         <q-item-section
@@ -47,7 +47,7 @@
         active-class="menu-active-link"
       >
         <q-item-section avatar>
-          <q-icon name="drafts" />
+          <q-icon name="download" />
         </q-item-section>
 
         <q-item-section
@@ -62,7 +62,7 @@
         active-class="menu-active-link"
       >
         <q-item-section avatar>
-          <q-icon name="drafts" />
+          <q-icon name="info" />
         </q-item-section>
 
         <q-item-section

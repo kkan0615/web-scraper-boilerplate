@@ -1,9 +1,12 @@
-import { app, ipcMain, dialog, OpenDialogOptions } from 'electron'
+import { app, ipcMain, dialog, OpenDialogOptions, shell } from 'electron'
 import { scraping, scrapingImages } from './scraping'
 import { exportToExcel, exportToTxt } from '../utils/export'
 import { getAppSetting, setAppSetting } from '../stores/setting'
 import { AppSetting } from '../types/appSetting'
 
+ipcMain.on('open-external',async (event, arg: string) => {
+  await shell.openExternal(arg)
+})
 ipcMain.handle('get-path', async (event, arg: 'home' | 'appData' | 'userData' | 'cache' | 'temp' | 'exe' | 'module' | 'desktop' | 'documents' | 'downloads' | 'music' | 'pictures' | 'videos' | 'recent' | 'logs' | 'crashDumps') => {
   return app.getPath(arg)
 })

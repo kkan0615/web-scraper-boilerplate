@@ -18,6 +18,9 @@ export default defineConfig({
     }),
   ],
   root: __dirname,
+  define: {
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+  },
   base: process.env.IS_DEV !== 'true' ? './' : '/',
   build: {
     sourcemap: true,
