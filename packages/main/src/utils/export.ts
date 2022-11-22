@@ -1,9 +1,10 @@
 // https://www.npmjs.com/package/exceljs
-import execljs from 'ExcelJS'
+// import execljs from 'ExcelJS'
 import { app } from 'electron'
 import fs from 'fs/promises'
 import { fileNameCheck } from './file'
 import puppeteer from 'puppeteer'
+import path from 'path'
 
 interface ExcelArgSheet {
   name: string
@@ -18,29 +19,29 @@ interface ExcelArg {
 }
 
 export const exportToExcel = async (arg: ExcelArg) => {
-  // Create workbook
-  const workbook = new execljs.Workbook()
-  workbook.created = new Date()
-  arg.sheets.map((sheetEl: ExcelArgSheet) => {
-    // Create sheet
-    const sheet = workbook.addWorksheet(sheetEl.name)
-    // Add columns
-    if (sheetEl.columns) {
-      sheet.columns = sheetEl.columns
-    }
-    sheet.addRows(sheetEl.data)
-  })
-  // Output xlsx type
-  let filePath = `${app.getPath('downloads')}/${arg.fileName}.${arg.fileExt}`
-  let i = 0
-  while (await fileNameCheck(filePath)) {
-    filePath = `${app.getPath('downloads')}/${arg.fileName} (${++i}).txt`
-  }
-  if(arg.fileExt === 'xlsx') {
-    await workbook.xlsx.writeFile(filePath)
-  } else if (arg.fileExt === 'csv') {
-    await workbook.csv.writeFile(filePath)
-  }
+  // // Create workbook
+  // const workbook = new execljs.Workbook()
+  // workbook.created = new Date()
+  // arg.sheets.map((sheetEl: ExcelArgSheet) => {
+  //   // Create sheet
+  //   const sheet = workbook.addWorksheet(sheetEl.name)
+  //   // Add columns
+  //   if (sheetEl.columns) {
+  //     sheet.columns = sheetEl.columns
+  //   }
+  //   sheet.addRows(sheetEl.data)
+  // })
+  // // Output xlsx type
+  // let filePath = `${app.getPath('downloads')}/${arg.fileName}.${arg.fileExt}`
+  // let i = 0
+  // while (await fileNameCheck(filePath)) {
+  //   filePath = `${app.getPath('downloads')}/${arg.fileName} (${++i}).txt`
+  // }
+  // if(arg.fileExt === 'xlsx') {
+  //   await workbook.xlsx.writeFile(filePath)
+  // } else if (arg.fileExt === 'csv') {
+  //   await workbook.csv.writeFile(filePath)
+  // }
 }
 
 export const exportToTxt = async (arg: {fileName: string, data: any[]}) => {
@@ -73,7 +74,7 @@ export const exportToPDF = async (page: puppeteer.Page) => {
   return pdf
 }
 
-export const exportToPDFWithStr = async (str: string) => {
+export const exportToPDFWithTemplate = async () => {
   // const pdf = new jsPDF()
   let filePath = `${app.getPath('downloads')}/awesome-test-pdf.pdf`
   let i = 0
@@ -81,28 +82,28 @@ export const exportToPDFWithStr = async (str: string) => {
     filePath = `${app.getPath('downloads')}/awesome-test-pdf (${++i}).pdf`
   }
 
-  const htmlEl = `
-    <!doctype html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport"
-              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>PDF</title>
-      </head>
-      <body>
-        <div>
-          body text
-        </div>
-      </body>
-      <style>
-        body {
-        color: black;
-        }
-      </style>
-    </html>
-  `
+  // const htmlEl = `
+  //   <!doctype html>
+  //   <html lang="en">
+  //     <head>
+  //       <meta charset="UTF-8">
+  //       <meta name="viewport"
+  //             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  //       <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  //       <title>PDF</title>
+  //     </head>
+  //     <body>
+  //       <div>
+  //         body text
+  //       </div>
+  //     </body>
+  //     <style>
+  //       body {
+  //       color: black;
+  //       }
+  //     </style>
+  //   </html>
+  // `
   // Create a browser instance
   const browser = await puppeteer.launch()
 
@@ -110,7 +111,7 @@ export const exportToPDFWithStr = async (str: string) => {
   const page = await browser.newPage()
 
   //Get HTML content from HTML file
-  // const html = fs.readFileSync('sample.html', 'utf-8');
+  const htmlEl = await fs.readFile(path.join(__dirname, '../../templates/test.html'), 'utf-8')
   await page.setContent(htmlEl, { waitUntil: 'domcontentloaded' })
 
   // To reflect CSS used for screens instead of print

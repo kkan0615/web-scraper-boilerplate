@@ -91,9 +91,9 @@ yarn build
   - filename
   - schedules
 - Export
-  - PDF
+  - PDF (Template 로 out에 문제 있음, string으로 따와야 할 수 도 있음)
   - CSV
-  - XLSX
+  - XLSX (ExcelJs 라이브러리에 문제가 있음)
   - TXT
 - Add schedule feature
 - Tray and program off by tray "exit"

@@ -4,7 +4,7 @@ import isDev from 'electron-is-dev'
 import axios from 'axios'
 import fs from 'fs/promises'
 import { app } from 'electron'
-import { exportToPDF, exportToPDFWithStr } from '../utils/export'
+import { exportToPDF, exportToPDFWithTemplate } from '../utils/export'
 
 export const scraping = async () => {
   // Launch browser
@@ -109,7 +109,7 @@ export const scrapingPDF = async () => {
     })
     // const pageHTML = await page.evaluate(() => document.body.innerHTML)
     // await exportToPDF(page)
-    // await exportToPDFWithStr('')
+    await exportToPDFWithTemplate()
     await browser.close()
     return 'success'
   } catch (e) {
