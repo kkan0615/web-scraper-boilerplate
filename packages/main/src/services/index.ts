@@ -1,6 +1,6 @@
 import { app, ipcMain, dialog, OpenDialogOptions, shell } from 'electron'
-import { scraping, scrapingImages } from './scraping'
-import { exportToExcel, exportToTxt } from '../utils/export'
+import { scraping, scrapingImages, scrapingPDF } from './scraping'
+import { exportToExcel, exportToPDF, exportToTxt } from '../utils/export'
 import { getAppSetting, setAppSetting } from '../stores/setting'
 import { AppSetting } from '../types/appSetting'
 
@@ -21,6 +21,7 @@ ipcMain.handle('set-app-setting', (event, args: Partial<AppSetting>) => {
 })
 ipcMain.handle('scraping', scraping)
 ipcMain.handle('scrapping-images', scrapingImages)
+ipcMain.handle('scrapping-pdf-test', scrapingPDF)
 ipcMain.handle('export-to-csv', async () => {
   await exportToExcel({
     fileName: 'awesome-test',

@@ -4,6 +4,7 @@ import isDev from 'electron-is-dev'
 import axios from 'axios'
 import fs from 'fs/promises'
 import { app } from 'electron'
+import { exportToPDF, exportToPDFWithStr } from '../utils/export'
 
 export const scraping = async () => {
   // Launch browser
@@ -87,6 +88,30 @@ export const scrapingImages = async () => {
 
     await browser.close()
     return result
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
+export const scrapingPDF = async () => {
+  try {
+    // Launch browser
+    const browser = await puppeteer.launch({
+      // devtools: isDev
+      // headless: true,
+    })
+    // Open page
+    const page = await browser.newPage()
+    // Move to url
+    await page.goto('https://stackoverflow.com/questions/18191893/generate-pdf-from-html-in-div-using-javascript', {
+      waitUntil: 'networkidle2',
+    })
+    // const pageHTML = await page.evaluate(() => document.body.innerHTML)
+    // await exportToPDF(page)
+    // await exportToPDFWithStr('')
+    await browser.close()
+    return 'success'
   } catch (e) {
     console.error(e)
     throw e

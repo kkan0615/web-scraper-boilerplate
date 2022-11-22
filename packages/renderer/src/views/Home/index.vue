@@ -39,7 +39,7 @@
           :disable="seconds > 0"
           :loading="loading"
           color="primary"
-          @click="scrapping"
+          @click="handleTest"
         >
           {{ t('commons.btns.start') }}
           <q-tooltip>
@@ -161,7 +161,7 @@ const handleTest = async () => {
   try {
     loading.value = true
     // console.log(await invoke('scraping'))
-    await (invoke('test'))
+    console.log(await invoke('scrapping-pdf-test'))
   } catch (e) {
     console.error(e)
   } finally {
