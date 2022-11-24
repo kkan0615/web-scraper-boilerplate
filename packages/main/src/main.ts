@@ -1,8 +1,11 @@
 import { app } from 'electron'
 import { createAppWindow } from './windows/app'
 import { autoUpdater } from 'electron-updater'
-import './utils/autoUpdete'
+// Disable AUto update
+// import './utils/autoUpdate'
 import './services'
+import { createTray, destroyTray } from './windows/tray'
+import { getAppSetting } from './stores/setting'
 
 const isSingleInstance = app.requestSingleInstanceLock()
 
@@ -17,8 +20,10 @@ app.on('second-instance', () => {
   )
 })
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on('window-all-closed', async () => {
+  const appSetting = getAppSetting()
+  if (process.platform !== 'darwin' && !appSetting.trayExit) {
+    await destroyTray()
     app.quit()
   }
 })
@@ -32,6 +37,7 @@ app.on('activate', () => {
 app
   .whenReady()
   .then(async () => {
+    await createTray()
     await createAppWindow()
     await autoUpdater.checkForUpdates()
   })

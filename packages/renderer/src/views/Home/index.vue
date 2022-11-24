@@ -35,17 +35,94 @@
         >
           Press to button to scrapping
         </div>
-        <q-btn
-          :disable="seconds > 0"
-          :loading="loading"
-          color="primary"
-          @click="handleTest"
+        <div
+          class="flex justify-center q-gutter-sm"
         >
-          {{ t('commons.btns.start') }}
-          <q-tooltip>
-            {{ t('tooltips.startScrapping') }}
-          </q-tooltip>
-        </q-btn>
+          <!-- Sample 1 - scrapping -->
+          <q-btn
+            :disable="seconds > 0"
+            :loading="loading"
+            color="primary"
+            @click="scrapping"
+          >
+            {{ t('commons.btns.start') }}
+            <q-tooltip>
+              {{ t('tooltips.startScrapping') }}
+            </q-tooltip>
+          </q-btn>
+          <!-- Sample 2 - xlsx -->
+          <q-btn
+            :disable="seconds > 0"
+            :loading="loading"
+            color="primary"
+            @click="handleScrapping('xlsx')"
+          >
+            xlsx
+            <q-tooltip>
+              {{ t('tooltips.startScrapping') }}
+            </q-tooltip>
+          </q-btn>
+          <!-- Sample 3 - csv -->
+          <q-btn
+            :disable="seconds > 0"
+            :loading="loading"
+            color="primary"
+            @click="handleScrapping('csv')"
+          >
+            csv
+            <q-tooltip>
+              {{ t('tooltips.startScrapping') }}
+            </q-tooltip>
+          </q-btn>
+          <!-- Sample 4 - pdf -->
+          <q-btn
+            :disable="seconds > 0"
+            :loading="loading"
+            color="primary"
+            @click="handleScrapping('pdf')"
+          >
+            pdf
+            <q-tooltip>
+              {{ t('tooltips.startScrapping') }}
+            </q-tooltip>
+          </q-btn>
+          <!-- Sample 5 - pdf with template -->
+          <q-btn
+            :disable="seconds > 0"
+            :loading="loading"
+            color="primary"
+            @click="handleScrapping('pdfWithTemplate')"
+          >
+            pdf With Template
+            <q-tooltip>
+              {{ t('tooltips.startScrapping') }}
+            </q-tooltip>
+          </q-btn>
+          <!-- Sample 6 - txt -->
+          <q-btn
+            :disable="seconds > 0"
+            :loading="loading"
+            color="primary"
+            @click="handleScrapping('txt')"
+          >
+            txt
+            <q-tooltip>
+              {{ t('tooltips.startScrapping') }}
+            </q-tooltip>
+          </q-btn>
+          <!-- Sample 5 - pdf with template -->
+          <q-btn
+            :disable="seconds > 0"
+            :loading="loading"
+            color="primary"
+            @click="handleScrapping('images')"
+          >
+            images
+            <q-tooltip>
+              {{ t('tooltips.startScrapping') }}
+            </q-tooltip>
+          </q-btn>
+        </div>
         <div
           v-if="seconds > 0"
         >
@@ -157,11 +234,23 @@ const scrapping = async () => {
   }
 }
 
-const handleTest = async () => {
+const handleScrapping = async (type: 'xlsx' | 'csv' | 'pdf' | 'pdfWithTemplate' | 'txt' | 'images') => {
   try {
     loading.value = true
-    // console.log(await invoke('scraping'))
-    console.log(await invoke('scrapping-pdf-test'))
+    if (type === 'xlsx') {
+      console.log(await invoke('export-to-xlsx-test'))
+    } else if (type=== 'csv') {
+      console.log(await invoke('export-to-csv-test'))
+    } else if (type === 'pdf') {
+      console.log(await invoke('scrapping-pdf-test'))
+    } else if (type === 'pdfWithTemplate') {
+      await invoke('scrapping-pdf-with-template-test')
+    } else if (type === 'txt') {
+      await invoke('scrapping-to-txt-test')
+    } else if (type === 'images') {
+      await invoke('crapping-images-test')
+    }
+
   } catch (e) {
     console.error(e)
   } finally {

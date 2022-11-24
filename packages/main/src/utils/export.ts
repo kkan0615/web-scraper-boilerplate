@@ -1,10 +1,12 @@
 // https://www.npmjs.com/package/exceljs
-// import execljs from 'ExcelJS'
+import execljs from 'ExcelJS'
 import { app } from 'electron'
 import fs from 'fs/promises'
 import { fileNameCheck } from './file'
 import puppeteer from 'puppeteer'
 import path from 'path'
+import { getAppSetting } from '../stores/setting'
+import { testTemplate } from '../templates/test'
 
 interface ExcelArgSheet {
   name: string
@@ -19,53 +21,66 @@ interface ExcelArg {
 }
 
 export const exportToExcel = async (arg: ExcelArg) => {
-  // // Create workbook
-  // const workbook = new execljs.Workbook()
-  // workbook.created = new Date()
-  // arg.sheets.map((sheetEl: ExcelArgSheet) => {
-  //   // Create sheet
-  //   const sheet = workbook.addWorksheet(sheetEl.name)
-  //   // Add columns
-  //   if (sheetEl.columns) {
-  //     sheet.columns = sheetEl.columns
-  //   }
-  //   sheet.addRows(sheetEl.data)
-  // })
-  // // Output xlsx type
-  // let filePath = `${app.getPath('downloads')}/${arg.fileName}.${arg.fileExt}`
-  // let i = 0
-  // while (await fileNameCheck(filePath)) {
-  //   filePath = `${app.getPath('downloads')}/${arg.fileName} (${++i}).txt`
-  // }
-  // if(arg.fileExt === 'xlsx') {
-  //   await workbook.xlsx.writeFile(filePath)
-  // } else if (arg.fileExt === 'csv') {
-  //   await workbook.csv.writeFile(filePath)
-  // }
+  const appSetting = getAppSetting()
+  const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
+  // Create workbook
+  const workbook = new execljs.Workbook()
+  workbook.created = new Date()
+  arg.sheets.map((sheetEl: ExcelArgSheet) => {
+    // Create sheet
+    const sheet = workbook.addWorksheet(sheetEl.name)
+    // Add columns
+    if (sheetEl.columns) {
+      sheet.columns = sheetEl.columns
+    }
+    sheet.addRows(sheetEl.data)
+  })
+  // Output xlsx type
+  let fileNameWithPath = `${filePath}/${arg.fileName}.${arg.fileExt}`
+  let i = 0
+  while (await fileNameCheck(fileNameWithPath)) {
+    fileNameWithPath = `${filePath}/${arg.fileName} (${++i}).txt`
+  }
+  let buf = undefined
+  if(arg.fileExt === 'xlsx') {
+    // It returns Array buffer. Look at the documents
+    buf = await workbook.xlsx.writeBuffer()
+  } else if (arg.fileExt === 'csv') {
+    // It returns Array buffer. Look at the documents
+    buf = await workbook.csv.writeBuffer()
+  }
+  if (buf)
+    await fs.writeFile(fileNameWithPath, Buffer.from(buf))
 }
 
-export const exportToTxt = async (arg: {fileName: string, data: any[]}) => {
+export const exportToTxt = async (data: any[]) => {
+  const appSetting = getAppSetting()
+  const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
+
   let fileContent = ''
-  for (let i = 0; i < arg.data.length; i++) {
-    fileContent += arg.data[i].toString()
+  for (let i = 0; i < data.length; i++) {
+    fileContent += data[i].toString()
     fileContent += '\n'
   }
-  let filePath = `${app.getPath('downloads')}/${arg.fileName}.txt`
+  let fileNameWithPath = `${filePath}/${'awesome-test'}.txt`
   let i = 0
-  while (await fileNameCheck(filePath)) {
-    filePath = `${app.getPath('downloads')}/${arg.fileName} (${++i}).txt`
+  while (await fileNameCheck(fileNameWithPath)) {
+    fileNameWithPath = `${filePath}/${'awesome-test'} (${++i}).txt`
   }
-  await fs.writeFile(filePath, fileContent)
+  await fs.writeFile(fileNameWithPath, fileContent)
 }
 
 export const exportToPDF = async (page: puppeteer.Page) => {
-  let filePath = `${app.getPath('downloads')}/awesome-test-pdf.pdf`
+  const appSetting = getAppSetting()
+  const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
+
+  let fileNameWithPath = `${filePath}/awesome-test-pdf.pdf`
   let i = 0
-  while (await fileNameCheck(filePath)) {
-    filePath = `${app.getPath('downloads')}/awesome-test-pdf (${++i}).pdf`
+  while (await fileNameCheck(fileNameWithPath)) {
+    fileNameWithPath = `${filePath}/awesome-test-pdf (${++i}).pdf`
   }
   const pdf = await page.pdf({
-    path: filePath,
+    path: fileNameWithPath,
     margin: { top: '100px', right: '50px', bottom: '100px', left: '50px' },
     printBackground: true,
     format: 'A4',
@@ -75,35 +90,16 @@ export const exportToPDF = async (page: puppeteer.Page) => {
 }
 
 export const exportToPDFWithTemplate = async () => {
+  const appSetting = getAppSetting()
+  const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
   // const pdf = new jsPDF()
-  let filePath = `${app.getPath('downloads')}/awesome-test-pdf.pdf`
+  let fileNameWithPath = `${filePath}/awesome-test-pdf.pdf`
   let i = 0
-  while (await fileNameCheck(filePath)) {
-    filePath = `${app.getPath('downloads')}/awesome-test-pdf (${++i}).pdf`
+  while (await fileNameCheck(fileNameWithPath)) {
+    fileNameWithPath = `${filePath}/awesome-test-pdf (${++i}).pdf`
   }
 
-  // const htmlEl = `
-  //   <!doctype html>
-  //   <html lang="en">
-  //     <head>
-  //       <meta charset="UTF-8">
-  //       <meta name="viewport"
-  //             content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  //       <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  //       <title>PDF</title>
-  //     </head>
-  //     <body>
-  //       <div>
-  //         body text
-  //       </div>
-  //     </body>
-  //     <style>
-  //       body {
-  //       color: black;
-  //       }
-  //     </style>
-  //   </html>
-  // `
+  const htmlEl = testTemplate
   // Create a browser instance
   const browser = await puppeteer.launch()
 
@@ -111,7 +107,6 @@ export const exportToPDFWithTemplate = async () => {
   const page = await browser.newPage()
 
   //Get HTML content from HTML file
-  const htmlEl = await fs.readFile(path.join(__dirname, '../../templates/test.html'), 'utf-8')
   await page.setContent(htmlEl, { waitUntil: 'domcontentloaded' })
 
   // To reflect CSS used for screens instead of print
@@ -119,7 +114,7 @@ export const exportToPDFWithTemplate = async () => {
 
   // Downlaod the PDF
   const pdf = await page.pdf({
-    path: filePath,
+    path: fileNameWithPath,
     margin: { top: '100px', right: '50px', bottom: '100px', left: '50px' },
     printBackground: true,
     format: 'A4',

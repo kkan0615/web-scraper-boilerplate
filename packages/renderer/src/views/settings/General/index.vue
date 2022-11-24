@@ -12,11 +12,22 @@
         >
           {{ t('titles.menus.settingGeneral') }}
         </div>
-        <q-checkbox
-          v-model="autoLaunch"
-          :label="t('types.appSetting.labels.autoLaunch')"
-          @update:model-value="handleAutoLaunch"
-        />
+        <div
+          class="column"
+        >
+          <!-- autoLaunch -->
+          <q-checkbox
+            v-model="autoLaunch"
+            :label="t('types.appSetting.labels.autoLaunch')"
+            @update:model-value="handleAutoLaunch"
+          />
+          <!-- Tray exit -->
+          <q-checkbox
+            v-model="trayExit"
+            :label="t('types.appSetting.labels.trayExit')"
+            @update:model-value="handleTrayExit"
+          />
+        </div>
       </div>
       <!-- Download path -->
       <div>
@@ -59,16 +70,21 @@ const { invoke } = useElectron()
 const appSettingStore = useAppSettingStore()
 
 const autoLaunch = ref(false)
+const trayExit = ref(false)
 const downloadPath = ref('')
 
 onBeforeMount(() => {
   autoLaunch.value = appSettingStore.autoLaunch
+  trayExit.value = appSettingStore.trayExit
   downloadPath.value = appSettingStore.downloadPath
-
 })
 
 const handleAutoLaunch = async () => {
   appSettingStore.setState(await invoke<Partial<AppSetting>>('set-app-setting', { autoLaunch: autoLaunch.value }))
+}
+
+const handleTrayExit = async () => {
+  appSettingStore.setState(await invoke<Partial<AppSetting>>('set-app-setting', { trayExit: trayExit.value }))
 }
 
 const handleChangePath = async () => {

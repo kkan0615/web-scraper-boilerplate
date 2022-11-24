@@ -12,6 +12,10 @@ export const getAppSetting = () => {
     appSetting.autoLaunch = false
   }
 
+  if (appSetting.trayExit === undefined) {
+    appSetting.trayExit = false
+  }
+
   if (!appSetting.downloadPath) {
     appSetting.downloadPath = app.getPath('downloads')
   }

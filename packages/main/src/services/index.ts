@@ -1,5 +1,5 @@
 import { app, ipcMain, dialog, OpenDialogOptions, shell } from 'electron'
-import { scraping, scrapingImages, scrapingPDF } from './scraping'
+import { scraping, scrapingImages, scrapingPDF, scrapingPDFWithTemplate } from './scraping'
 import { exportToExcel, exportToPDF, exportToTxt } from '../utils/export'
 import { getAppSetting, setAppSetting } from '../stores/setting'
 import { AppSetting } from '../types/appSetting'
@@ -20,9 +20,10 @@ ipcMain.handle('set-app-setting', (event, args: Partial<AppSetting>) => {
   return setAppSetting(args)
 })
 ipcMain.handle('scraping', scraping)
-ipcMain.handle('scrapping-images', scrapingImages)
+ipcMain.handle('scrapping-images-test', scrapingImages)
 ipcMain.handle('scrapping-pdf-test', scrapingPDF)
-ipcMain.handle('export-to-csv', async () => {
+ipcMain.handle('scrapping-pdf-with-template-test', scrapingPDFWithTemplate)
+ipcMain.handle('export-to-csv-test', async () => {
   await exportToExcel({
     fileName: 'awesome-test',
     fileExt: 'csv',
@@ -43,7 +44,7 @@ ipcMain.handle('export-to-csv', async () => {
 
   return true
 })
-ipcMain.handle('export-to-xlsx', async () => {
+ipcMain.handle('export-to-xlsx-test', async () => {
   await exportToExcel({
     fileName: 'awesome-test',
     fileExt: 'xlsx',
@@ -64,12 +65,9 @@ ipcMain.handle('export-to-xlsx', async () => {
 
   return true
 })
-ipcMain.handle('export-to-txt', async (event, args) => {
-  await exportToTxt({
-    fileName: 'awesome-txt-test',
-    data: [
-      { key: 'a', value: '에이' },
-      { key: 'b', value: '비' }
-    ]
-  })
+ipcMain.handle('scrapping-to-txt-test', async (event, args) => {
+  await exportToTxt([
+    { key: 'a', value: '에이' },
+    { key: 'b', value: '비' }
+  ])
 })

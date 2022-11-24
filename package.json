@@ -1,7 +1,7 @@
 {
   "name": "vue3-test",
   "author": "Youngin Kwak",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": true,
   "main": "./dist/main/main.cjs",
   "scripts": {
@@ -18,24 +18,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kkan0615/vue3-typescript-electron-boilerplate"
+    "url": "https://github.com/kkan0615/web-scraper-boilerplate"
   },
   "build": {
-    "appId": "com.app.my.first.eletron",
-    "productName": "My-first-electron",
+    "appId": "com.app.web.scrapper",
+    "productName": "Web-scrapper-boilerplate",
     "copyright": "Copyright © 2022 ${author}",
     "publish": [
       {
         "provider": "github",
         "private": true,
         "owner": "kkan0615",
-        "repo": "vue3-typescript-electron-boilerplate"
+        "repo": "\nweb-scraper-boilerplate"
       }
     ],
     "mac": {
+      "icon": "./public/logo/logo_color-128.png",
       "category": "public.app-category.utilities"
     },
     "win": {
+      "icon": "./public/logo/logo_color-256.png",
       "publish": [
         "github"
       ],
@@ -50,6 +52,10 @@
     },
     "files": [
       "dist/**/*"
+    ],
+    "extraResources": [
+      "public",
+      "teamlates"
     ],
     "directories": {
       "buildResources": "assets",

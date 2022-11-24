@@ -1,3 +1,5 @@
+import { SupportedLanguage } from '@/types/language'
+
 const common = {
   test: 'Hello World',
   commons: {
@@ -62,6 +64,10 @@ const common = {
     },
     labels: {
       action: 'action',
+      supportedLanguage: {
+        en: 'English',
+        ko: '한국어'
+      },
     },
     types: {
       models: {
@@ -103,7 +109,8 @@ const own = {
       autoLaunch: 'auto launch',
       downloadPath: 'download path',
       labels: {
-        autoLaunch: 'Launch App when you boot computer'
+        autoLaunch: 'Launch App when you boot computer',
+        trayExit: 'Use tray mode when exit the window',
       }
     }
   },

@@ -79,6 +79,7 @@ yarn build
 ├─ vite.config.ts           # Vite config for renderer source-code
 ├─ tsconfig.json            # Specific TypeScript config.
 ```
+
 # Refs
 ## Electron
 - [cawa-93](https://github.com/cawa-93/vite-electron-builder)
@@ -90,14 +91,21 @@ yarn build
 - Add electron-store
   - filename
   - schedules
+- Scrapping Examples
 - Export
   - PDF (Template 로 out에 문제 있음, string으로 따와야 할 수 도 있음)
   - CSV
   - XLSX (ExcelJs 라이브러리에 문제가 있음)
   - TXT
+  - Images/video
 - Add schedule feature
 - Tray and program off by tray "exit"
 ## Renderer
 - setting page
-  - Download path
-  - checkbox - Turn on when computer is booted 
+  - General
+    - FileName
+  - Scrapping
+    - Download manually
+  - Schedule
+    - Scheduled list
+    - CRUD
