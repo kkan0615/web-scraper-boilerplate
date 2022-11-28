@@ -1,5 +1,5 @@
 import { app, ipcMain, dialog, OpenDialogOptions, shell } from 'electron'
-import { scraping, scrapingImages, scrapingPDF, scrapingPDFWithTemplate } from './scraping'
+import { scraping, scrapingImages, scrapingPDF, scrapingPDFWithTemplate, scrapingTable } from './scraping'
 import { exportToExcel, exportToPDF, exportToTxt } from '../utils/export'
 import { getAppSetting, setAppSetting } from '../stores/setting'
 import { AppSetting } from '../types/appSetting'
@@ -45,22 +45,11 @@ ipcMain.handle('export-to-csv-test', async () => {
   return true
 })
 ipcMain.handle('export-to-xlsx-test', async () => {
+  const result = await scrapingTable()
   await exportToExcel({
-    fileName: 'awesome-test',
+    fileName: 'NCS-result',
     fileExt: 'xlsx',
-    sheets: [
-      {
-        name: 'Test 1',
-        columns: [
-          { header: 'key', key: 'key' },
-          { header: 'value', key: 'value' },
-        ],
-        data: [
-          { key: 'a', value: '에이' },
-          { key: 'b', value: '비' }
-        ]
-      },
-    ]
+    sheets: result,
   })
 
   return true

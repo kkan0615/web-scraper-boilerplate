@@ -10,7 +10,7 @@
     <span
       class="q-ml-sm"
     >
-      Github me
+      github
     </span>
   </q-btn>
 </template>

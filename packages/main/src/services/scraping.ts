@@ -4,7 +4,7 @@ import isDev from 'electron-is-dev'
 import axios from 'axios'
 import fs from 'fs/promises'
 import { app } from 'electron'
-import { exportToPDF, exportToPDFWithTemplate } from '../utils/export'
+import { ExcelArg, ExcelArgSheet, exportToPDF, exportToPDFWithTemplate } from '../utils/export'
 
 export const scraping = async () => {
   // Launch browser
@@ -53,6 +53,54 @@ export const scraping = async () => {
 
   await browser.close()
 
+  return result
+}
+
+export const scrapingTable = async () => {
+  // Launch browser
+  const browser = await puppeteer.launch({
+    // devtools: isDev
+    // headless: true,
+  })
+  // Open page
+  const page = await browser.newPage()
+  // Move to url
+  await page.goto('https://ncs.io/music-search?q=&genre=2&mood=', {
+    waitUntil: 'networkidle2',
+  })
+  // Get the page DOM
+  const pageHTML = await page.evaluate(() => document.body.innerHTML)
+  // Use Cheerio to phaser DOM
+  const result: ExcelArgSheet[] = [{
+    name: 'NCS-Chill',
+    columns: [
+      { header: 'audio', name: 'audio' },
+      { header: 'image', name: 'image' },
+      { header: 'name', name: 'name' },
+      { header: 'author', name: 'author' },
+      { header: 'releaseDate', name: 'release date' },
+      { header: 'tags', name: 'tags' },
+    ],
+    data: [],
+  } as ExcelArgSheet]
+  const tbodyTrEls = $(' article:nth-child(3) > div > table > tbody > tr', pageHTML)
+  tbodyTrEls.each((i, el) => {
+    const tdEls = $(el).find('td')
+    const data = []
+    data.push($(tdEls[0]).find('a').attr('data-url') || '')
+    data.push($(tdEls[2]).find('a > img').attr('src') || '')
+    data.push($(tdEls[3]).find('a > p').text())
+    data.push($(tdEls[3]).find('span').text())
+    data.push($(tdEls[5]).text())
+    const tags: string[] = []
+    $('a', tdEls[4]).each((j, tagAel) => {
+      tags.push($(tagAel).text())
+    })
+    data.push(tags.join(', '))
+    result[0].data.push(data)
+  })
+
+  await browser.close()
   return result
 }
 

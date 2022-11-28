@@ -8,13 +8,13 @@ import path from 'path'
 import { getAppSetting } from '../stores/setting'
 import { testTemplate } from '../templates/test'
 
-interface ExcelArgSheet {
+export interface ExcelArgSheet {
   name: string
   columns?: any[]
   data: any[]
 }
 
-interface ExcelArg {
+export interface ExcelArg {
   fileName: string
   fileExt: 'xlsx' | 'csv'
   sheets: ExcelArgSheet[]
@@ -39,7 +39,7 @@ export const exportToExcel = async (arg: ExcelArg) => {
   let fileNameWithPath = `${filePath}/${arg.fileName}.${arg.fileExt}`
   let i = 0
   while (await fileNameCheck(fileNameWithPath)) {
-    fileNameWithPath = `${filePath}/${arg.fileName} (${++i}).txt`
+    fileNameWithPath = `${filePath}/${arg.fileName} (${++i}).${arg.fileExt}`
   }
   let buf = undefined
   if(arg.fileExt === 'xlsx') {

@@ -116,6 +116,7 @@ const own = {
   },
   views: {
     Home: {
+      instruction: 'press button to start',
       pageTitle: 'home',
       scrapping: 'Scrapping'
     },

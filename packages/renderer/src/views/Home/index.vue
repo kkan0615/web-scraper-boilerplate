@@ -3,9 +3,7 @@
     class="flex flex-center"
     style="height: 100vh"
   >
-    <div
-      style="width: 300px"
-    >
+    <div>
       <header
         class="flex"
       >
@@ -31,34 +29,39 @@
         class="text-center"
       >
         <div
-          class="text-h6 q-mb-md"
+          class="text-h6 q-mb-md text-capitalize"
         >
-          Press to button to scrapping
+          {{ t('views.Home.instruction') }}
         </div>
         <div
           class="flex justify-center q-gutter-sm"
         >
           <!-- Sample 1 - scrapping -->
-          <q-btn
-            :disable="seconds > 0"
-            :loading="loading"
-            color="primary"
-            @click="scrapping"
-          >
-            {{ t('commons.btns.start') }}
-            <q-tooltip>
-              {{ t('tooltips.startScrapping') }}
-            </q-tooltip>
-          </q-btn>
+          <!--          <q-btn-->
+          <!--            :disable="seconds > 0"-->
+          <!--            :loading="loading"-->
+          <!--            color="primary"-->
+          <!--            @click="scrapping"-->
+          <!--          >-->
+          <!--            {{ t('commons.btns.start') }}-->
+          <!--            <q-tooltip-->
+          <!--              v-if="seconds <= 0"-->
+          <!--            >-->
+          <!--              {{ t('tooltips.startScrapping') }}-->
+          <!--            </q-tooltip>-->
+          <!--          </q-btn>-->
           <!-- Sample 2 - xlsx -->
           <q-btn
             :disable="seconds > 0"
             :loading="loading"
             color="primary"
+            icon="fas fa-file-excel"
+            label="excel"
             @click="handleScrapping('xlsx')"
           >
-            xlsx
-            <q-tooltip>
+            <q-tooltip
+              v-if="seconds <= 0"
+            >
               {{ t('tooltips.startScrapping') }}
             </q-tooltip>
           </q-btn>
@@ -66,11 +69,14 @@
           <q-btn
             :disable="seconds > 0"
             :loading="loading"
+            icon="fas fa-file-csv"
             color="primary"
+            label="csv"
             @click="handleScrapping('csv')"
           >
-            csv
-            <q-tooltip>
+            <q-tooltip
+              v-if="seconds <= 0"
+            >
               {{ t('tooltips.startScrapping') }}
             </q-tooltip>
           </q-btn>
@@ -79,10 +85,13 @@
             :disable="seconds > 0"
             :loading="loading"
             color="primary"
+            icon="fas fa-file-pdf"
+            label="pdf"
             @click="handleScrapping('pdf')"
           >
-            pdf
-            <q-tooltip>
+            <q-tooltip
+              v-if="seconds <= 0"
+            >
               {{ t('tooltips.startScrapping') }}
             </q-tooltip>
           </q-btn>
@@ -91,10 +100,13 @@
             :disable="seconds > 0"
             :loading="loading"
             color="primary"
+            icon="fas fa-file-pdf"
+            label="pdf With Template"
             @click="handleScrapping('pdfWithTemplate')"
           >
-            pdf With Template
-            <q-tooltip>
+            <q-tooltip
+              v-if="seconds <= 0"
+            >
               {{ t('tooltips.startScrapping') }}
             </q-tooltip>
           </q-btn>
@@ -103,10 +115,13 @@
             :disable="seconds > 0"
             :loading="loading"
             color="primary"
+            icon="fas fa-file-lines"
+            label="txt"
             @click="handleScrapping('txt')"
           >
-            txt
-            <q-tooltip>
+            <q-tooltip
+              v-if="seconds <= 0"
+            >
               {{ t('tooltips.startScrapping') }}
             </q-tooltip>
           </q-btn>
@@ -115,10 +130,13 @@
             :disable="seconds > 0"
             :loading="loading"
             color="primary"
+            icon="fas fa-file-image"
+            label="images"
             @click="handleScrapping('images')"
           >
-            images
-            <q-tooltip>
+            <q-tooltip
+              v-if="seconds <= 0"
+            >
               {{ t('tooltips.startScrapping') }}
             </q-tooltip>
           </q-btn>
@@ -237,6 +255,7 @@ const scrapping = async () => {
 const handleScrapping = async (type: 'xlsx' | 'csv' | 'pdf' | 'pdfWithTemplate' | 'txt' | 'images') => {
   try {
     loading.value = true
+    createTimer()
     if (type === 'xlsx') {
       console.log(await invoke('export-to-xlsx-test'))
     } else if (type=== 'csv') {
