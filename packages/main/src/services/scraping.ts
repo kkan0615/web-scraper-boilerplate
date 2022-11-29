@@ -69,36 +69,47 @@ export const scrapingTable = async () => {
     waitUntil: 'networkidle2',
   })
   // Get the page DOM
-  const pageHTML = await page.evaluate(() => document.body.innerHTML)
+  let pageHTML = await page.evaluate(() => document.body.innerHTML)
   // Use Cheerio to phaser DOM
   const result: ExcelArgSheet[] = [{
     name: 'NCS-Chill',
-    columns: [
-      { header: 'audio', name: 'audio' },
-      { header: 'image', name: 'image' },
-      { header: 'name', name: 'name' },
-      { header: 'author', name: 'author' },
-      { header: 'releaseDate', name: 'release date' },
-      { header: 'tags', name: 'tags' },
-    ],
     data: [],
   } as ExcelArgSheet]
-  const tbodyTrEls = $(' article:nth-child(3) > div > table > tbody > tr', pageHTML)
-  tbodyTrEls.each((i, el) => {
-    const tdEls = $(el).find('td')
-    const data = []
-    data.push($(tdEls[0]).find('a').attr('data-url') || '')
-    data.push($(tdEls[2]).find('a > img').attr('src') || '')
-    data.push($(tdEls[3]).find('a > p').text())
-    data.push($(tdEls[3]).find('span').text())
-    data.push($(tdEls[5]).text())
-    const tags: string[] = []
-    $('a', tdEls[4]).each((j, tagAel) => {
-      tags.push($(tagAel).text())
+
+  let maxPagination = $('.pagination > li', pageHTML).length || 1
+  if (maxPagination > 2) {
+    // Remove prev and next
+    maxPagination -= 2
+  }
+  console.log(maxPagination)
+  for (let i = 0; i < maxPagination; i++) {
+    const tbodyTrEls = $('article:nth-child(3) > div > table > tbody > tr', pageHTML)
+    tbodyTrEls.each((tri, el) => {
+      const tdEls = $(el).find('td')
+      const data = []
+      data.push($(tdEls[0]).find('a').attr('data-url') || '')
+      data.push($(tdEls[2]).find('a > img').attr('src') || '')
+      data.push($(tdEls[3]).find('a > p').text())
+      data.push($(tdEls[3]).find('span').text())
+      data.push($(tdEls[5]).text())
+      const tags: string[] = []
+      $('a', tdEls[4]).each((j, tagAel) => {
+        tags.push($(tagAel).text())
+      })
+      data.push(tags.join(', '))
+      result[0].data.push(data)
     })
-    data.push(tags.join(', '))
-    result[0].data.push(data)
-  })
+
+    const nextHref = $('a[rel="next"]', pageHTML).attr('href') || ''
+    if (nextHref) {
+      await page.goto(nextHref, {
+        waitUntil: 'networkidle2',
+      })
+
+      // Get the page DOM
+      pageHTML = await page.evaluate(() => document.body.innerHTML)
+    }
+  }
 
   await browser.close()
   return result

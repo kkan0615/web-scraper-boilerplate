@@ -24,22 +24,11 @@ ipcMain.handle('scrapping-images-test', scrapingImages)
 ipcMain.handle('scrapping-pdf-test', scrapingPDF)
 ipcMain.handle('scrapping-pdf-with-template-test', scrapingPDFWithTemplate)
 ipcMain.handle('export-to-csv-test', async () => {
+  const result = await scrapingTable()
   await exportToExcel({
-    fileName: 'awesome-test',
+    fileName: 'NCS-result-csv',
     fileExt: 'csv',
-    sheets: [
-      {
-        name: 'Test 1',
-        columns: [
-          { header: 'key', key: 'key' },
-          { header: 'value', key: 'value' },
-        ],
-        data: [
-          { key: 'a', value: '에이' },
-          { key: 'b', value: '비' }
-        ]
-      },
-    ]
+    sheets: result,
   })
 
   return true
@@ -47,7 +36,7 @@ ipcMain.handle('export-to-csv-test', async () => {
 ipcMain.handle('export-to-xlsx-test', async () => {
   const result = await scrapingTable()
   await exportToExcel({
-    fileName: 'NCS-result',
+    fileName: 'NCS-result-xlsx',
     fileExt: 'xlsx',
     sheets: result,
   })

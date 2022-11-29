@@ -4,13 +4,12 @@ import { app } from 'electron'
 import fs from 'fs/promises'
 import { fileNameCheck } from './file'
 import puppeteer from 'puppeteer'
-import path from 'path'
 import { getAppSetting } from '../stores/setting'
 import { testTemplate } from '../templates/test'
 
 export interface ExcelArgSheet {
   name: string
-  columns?: any[]
+  // columns?: any[]
   data: any[]
 }
 
@@ -30,9 +29,15 @@ export const exportToExcel = async (arg: ExcelArg) => {
     // Create sheet
     const sheet = workbook.addWorksheet(sheetEl.name)
     // Add columns
-    if (sheetEl.columns) {
-      sheet.columns = sheetEl.columns
-    }
+    sheet.columns = [
+      { key: 'audio', header: 'audio', width: 50 },
+      { key: 'image', header: 'image', width: 50 },
+      { key: 'name', header: 'name', width: 35 },
+      { key: 'author', header: 'author', width: 35 },
+      { key: 'releaseDate', header: 'release date', width: 15 },
+      { key: 'tags', header: 'tags', width: 60 },
+    ]
+    // Add rows
     sheet.addRows(sheetEl.data)
   })
   // Output xlsx type

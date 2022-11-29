@@ -25,6 +25,13 @@ yarn build
 - [vue-use](https://vueuse.org/): vue utils
 - [vueuse/electron](https://vueuse.org/electron/readme.html#vueuse-electron): Electron vue-use
 
+## Scapping and export
+- [puppeteer]()
+- [cheerio]()
+- [exceljs](https://www.npmjs.com/package/exceljs)
+- [xlsx](https://www.npmjs.com/package/xlsx): Alternative (not using in here)
+- 
+
 # :file_folder: Directory Structure
 ```
 ├─ dist/                  # Contain compiled output from each package.
