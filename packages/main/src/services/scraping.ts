@@ -81,7 +81,6 @@ export const scrapingTable = async () => {
     // Remove prev and next
     maxPagination -= 2
   }
-  console.log(maxPagination)
   for (let i = 0; i < maxPagination; i++) {
     const tbodyTrEls = $('article:nth-child(3) > div > table > tbody > tr', pageHTML)
     tbodyTrEls.each((tri, el) => {
