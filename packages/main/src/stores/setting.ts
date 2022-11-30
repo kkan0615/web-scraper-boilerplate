@@ -1,6 +1,7 @@
 import { app } from 'electron'
 import { electronStore } from './index'
 import { AppSetting } from '../types/appSetting'
+import { ScrapSetting } from '../types/scrapSetting'
 
 export const getAppSetting = () => {
   let appSetting = electronStore.get('app-setting') as AppSetting | undefined
@@ -38,4 +39,38 @@ export const setAppSetting = (args: Partial<AppSetting>) => {
   electronStore.set('app-setting', newAppSetting)
 
   return newAppSetting
+}
+
+
+export const getScrapSetting = () => {
+  let scrapSetting = electronStore.get('app-setting') as ScrapSetting | undefined
+  if (!scrapSetting) {
+    scrapSetting = {} as ScrapSetting
+  }
+
+  if (!scrapSetting.fileNames) {
+    scrapSetting.fileNames = {
+      xlsx: 'example_xlsx',
+      csv: 'example_csv',
+      pdf: 'example_pdf',
+      'pdf-with-template': 'example_pdf_with_template',
+      txt: 'example_txt',
+      videos: 'example_video',
+      images: 'example_images'
+    }
+  }
+  return scrapSetting
+}
+
+export const setScrapSetting = (args: Partial<ScrapSetting>) => {
+  const scrapSetting = getAppSetting()
+
+  const newScrapSetting: AppSetting = {
+    ...scrapSetting,
+    ...args,
+  }
+
+  electronStore.set('scrap-setting', scrapSetting)
+
+  return newScrapSetting
 }

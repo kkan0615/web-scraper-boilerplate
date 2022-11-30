@@ -257,17 +257,17 @@ const handleScrapping = async (type: 'xlsx' | 'csv' | 'pdf' | 'pdfWithTemplate' 
     loading.value = true
     createTimer()
     if (type === 'xlsx') {
-      console.log(await invoke('export-to-xlsx-test'))
+      console.log(await invoke('scrap-to-xlsx-test'))
     } else if (type=== 'csv') {
-      console.log(await invoke('export-to-csv-test'))
+      console.log(await invoke('scrap-to-csv-test'))
     } else if (type === 'pdf') {
-      console.log(await invoke('scrapping-pdf-test'))
+      console.log(await invoke('scrap-pdf-test'))
     } else if (type === 'pdfWithTemplate') {
-      await invoke('scrapping-pdf-with-template-test')
+      await invoke('scrap-pdf-with-template-test')
     } else if (type === 'txt') {
-      await invoke('scrapping-to-txt-test')
+      await invoke('scrap-to-txt-test')
     } else if (type === 'images') {
-      await invoke('crapping-images-test')
+      await invoke('scrap-images-test')
     }
 
   } catch (e) {

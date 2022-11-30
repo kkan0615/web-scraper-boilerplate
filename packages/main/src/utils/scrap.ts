@@ -6,7 +6,7 @@ import fs from 'fs/promises'
 import { app } from 'electron'
 import { ExcelArg, ExcelArgSheet, exportToPDF, exportToPDFWithTemplate } from '../utils/export'
 
-export const scraping = async () => {
+export const scrap = async () => {
   // Launch browser
   const browser = await puppeteer.launch({
     // devtools: isDev
@@ -56,7 +56,7 @@ export const scraping = async () => {
   return result
 }
 
-export const scrapingTable = async () => {
+export const scrapTableForTest = async () => {
   // Launch browser
   const browser = await puppeteer.launch({
     // devtools: isDev
@@ -194,4 +194,8 @@ export const scrapingPDFWithTemplate = async () => {
     console.error(e)
     throw e
   }
+}
+
+export default {
+  scrapTableForTest,
 }
