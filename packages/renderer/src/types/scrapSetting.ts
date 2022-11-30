@@ -1,6 +1,5 @@
-import { AcceptedFileExt } from '@/types/file'
+export type FileNameKey = 'xlsx' | 'csv' | 'images' | 'pdf' | 'pdf-with-template' | 'txt' | 'videos'
 
 export interface ScrapSetting {
-  saveImmediate: boolean
-  saveImmediateExt: AcceptedFileExt[]
+  fileNames: Record<FileNameKey, string>
 }

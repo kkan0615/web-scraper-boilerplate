@@ -9,17 +9,16 @@ import { testTemplate } from '../templates/test'
 
 export interface ExcelArgSheet {
   name: string
-  // columns?: any[]
+  columns?: any[]
   data: any[]
 }
 
 export interface ExcelArg {
-  fileName: string
   fileExt: 'xlsx' | 'csv'
   sheets: ExcelArgSheet[]
 }
 
-export const exportToExcel = async (arg: ExcelArg) => {
+export const exportToExcel = async (fileName: string, arg: ExcelArg) => {
   const appSetting = getAppSetting()
   const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
   // Create workbook
@@ -29,22 +28,15 @@ export const exportToExcel = async (arg: ExcelArg) => {
     // Create sheet
     const sheet = workbook.addWorksheet(sheetEl.name)
     // Add columns
-    sheet.columns = [
-      { key: 'audio', header: 'audio', width: 50 },
-      { key: 'image', header: 'image', width: 50 },
-      { key: 'name', header: 'name', width: 35 },
-      { key: 'author', header: 'author', width: 35 },
-      { key: 'releaseDate', header: 'release date', width: 15 },
-      { key: 'tags', header: 'tags', width: 60 },
-    ]
+    sheet.columns = sheetEl.columns || []
     // Add rows
     sheet.addRows(sheetEl.data)
   })
   // Output xlsx type
-  let fileNameWithPath = `${filePath}/${arg.fileName}.${arg.fileExt}`
+  let fileNameWithPath = `${filePath}/${fileName}.${arg.fileExt}`
   let i = 0
   while (await fileNameCheck(fileNameWithPath)) {
-    fileNameWithPath = `${filePath}/${arg.fileName} (${++i}).${arg.fileExt}`
+    fileNameWithPath = `${filePath}/${fileName} (${++i}).${arg.fileExt}`
   }
   let buf = undefined
   if(arg.fileExt === 'xlsx') {
@@ -58,21 +50,28 @@ export const exportToExcel = async (arg: ExcelArg) => {
     await fs.writeFile(fileNameWithPath, Buffer.from(buf))
 }
 
-export const exportToTxt = async (data: any[]) => {
-  const appSetting = getAppSetting()
-  const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
+export const exportToTxt = async (filename: string, data: any[]) => {
+  try {
+    const appSetting = getAppSetting()
+    const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
 
-  let fileContent = ''
-  for (let i = 0; i < data.length; i++) {
-    fileContent += data[i].toString()
-    fileContent += '\n'
+    let fileContent = ''
+    for (let i = 0; i < data.length; i++) {
+      fileContent += JSON.stringify(data[i])
+      fileContent += '\n'
+    }
+    let fileNameWithPath = `${filePath}/${filename}.txt`
+    let i = 0
+    while (await fileNameCheck(fileNameWithPath)) {
+      fileNameWithPath = `${filePath}/${filename} (${++i}).txt`
+    }
+    await fs.writeFile(fileNameWithPath, fileContent)
+
+    return true
+  } catch (e) {
+    console.error(e)
+    throw e
   }
-  let fileNameWithPath = `${filePath}/${'awesome-test'}.txt`
-  let i = 0
-  while (await fileNameCheck(fileNameWithPath)) {
-    fileNameWithPath = `${filePath}/${'awesome-test'} (${++i}).txt`
-  }
-  await fs.writeFile(fileNameWithPath, fileContent)
 }
 
 export const exportToPDF = async (page: puppeteer.Page) => {

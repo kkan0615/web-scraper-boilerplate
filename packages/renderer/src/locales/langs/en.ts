@@ -1,5 +1,3 @@
-import { SupportedLanguage } from '@/types/language'
-
 const common = {
   test: 'Hello World',
   commons: {
@@ -116,6 +114,7 @@ const own = {
   },
   views: {
     Home: {
+      errorMsg: 'Please try again some times later',
       instruction: 'press button to start',
       pageTitle: 'home',
       scrapping: 'Scrapping'

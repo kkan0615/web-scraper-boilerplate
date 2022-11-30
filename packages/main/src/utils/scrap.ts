@@ -56,6 +56,9 @@ export const scrap = async () => {
   return result
 }
 
+/**
+ * Scrap NCS Chill pages with pagination
+ */
 export const scrapTableForTest = async () => {
   // Launch browser
   const browser = await puppeteer.launch({
@@ -71,10 +74,7 @@ export const scrapTableForTest = async () => {
   // Get the page DOM
   let pageHTML = await page.evaluate(() => document.body.innerHTML)
   // Use Cheerio to phaser DOM
-  const result: ExcelArgSheet[] = [{
-    name: 'NCS-Chill',
-    data: [],
-  } as ExcelArgSheet]
+  let result: any[] = []
 
   let maxPagination = $('.pagination > li', pageHTML).length || 1
   if (maxPagination > 2) {
@@ -96,7 +96,7 @@ export const scrapTableForTest = async () => {
         tags.push($(tagAel).text())
       })
       data.push(tags.join(', '))
-      result[0].data.push(data)
+      result.push(data)
     })
 
     const nextHref = $('a[rel="next"]', pageHTML).attr('href') || ''

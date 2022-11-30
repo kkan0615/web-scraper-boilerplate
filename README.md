@@ -86,6 +86,12 @@ yarn build
 ├─ vite.config.ts           # Vite config for renderer source-code
 ├─ tsconfig.json            # Specific TypeScript config.
 ```
+## main/utils/scrap.ts
+Handle scrap result
+
+## main/utils/export.ts
+Handle export to file
+
 
 # Refs
 ## Electron
@@ -101,8 +107,6 @@ yarn build
 - Scrapping Examples
 - Export
   - PDF (Template 로 out에 문제 있음, string으로 따와야 할 수 도 있음)
-  - CSV
-  - XLSX (ExcelJs 라이브러리에 문제가 있음)
   - TXT
   - Images/video
 - Add schedule feature
@@ -110,9 +114,9 @@ yarn build
 ## Renderer
 - setting page
   - General
-    - FileName
   - Scrapping
     - Download manually
+    - FileName
   - Schedule
     - Scheduled list
     - CRUD

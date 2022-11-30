@@ -10,27 +10,63 @@
         <div
           class="text-h6 text-capitalize"
         >
-          {{ t('titles.menus.settingGeneral') }}
+          File names
         </div>
-        <q-checkbox
-          v-model="saveImmediate"
-          :label="t('types.appSetting.labels.autoLaunch')"
-          @update:model-value="onUpdateSaveImmediate"
+        <q-input
+          v-model="xlsxFileName"
+          label="xlsx"
+          dense
+          outlined
+          @update:model-value="onUpdateFileNames"
         />
       </div>
     </div>
   </q-page>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useScrapSettingStore } from '@/store/modules/scrapSetting'
+import { ScrapSetting } from '@/types/scrapSetting'
+import { useElectron } from '@/utils/useElectron'
 
 const { t } = useI18n()
+const { invoke } = useElectron()
+const scrapSettingStore = useScrapSettingStore()
 
-const saveImmediate = ref(false)
+const xlsxFileName = ref('')
+const csvFileName = ref('')
+const txtFileName = ref('')
+const imagesFileName = ref('')
+const pdfFileName = ref('')
+const pdfWithTemplateFileName = ref('')
+const videosWithTemplateFileName = ref('')
 
-const onUpdateSaveImmediate = () => {
-  //
+onBeforeMount(() => {
+  xlsxFileName.value = scrapSettingStore.fileNames.xlsx
+  csvFileName.value = scrapSettingStore.fileNames.csv
+  txtFileName.value = scrapSettingStore.fileNames.txt
+  imagesFileName.value = scrapSettingStore.fileNames.images
+  pdfFileName.value = scrapSettingStore.fileNames.pdf
+  pdfWithTemplateFileName.value = scrapSettingStore.fileNames['pdf-with-template']
+  videosWithTemplateFileName.value = scrapSettingStore.fileNames.videos
+})
+
+const onUpdateFileNames = async () => {
+  scrapSettingStore.setState(
+    await invoke<Partial<ScrapSetting>>('set-scrap-setting', {
+      fileNames: {
+        xlsx: xlsxFileName.value,
+        csv: csvFileName.value,
+        txt: txtFileName.value,
+        images: imagesFileName.value,
+        pdf: pdfFileName.value,
+        'pdf-with-template': pdfWithTemplateFileName.value,
+        videos: videosWithTemplateFileName.value
+      }
+    })
+  )
+
 }
 </script>
 <style>

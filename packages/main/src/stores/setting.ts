@@ -43,7 +43,7 @@ export const setAppSetting = (args: Partial<AppSetting>) => {
 
 
 export const getScrapSetting = () => {
-  let scrapSetting = electronStore.get('app-setting') as ScrapSetting | undefined
+  let scrapSetting = electronStore.get('scrap-setting') as ScrapSetting | undefined
   if (!scrapSetting) {
     scrapSetting = {} as ScrapSetting
   }

@@ -28,6 +28,19 @@
       <div
         class="text-center"
       >
+        <!-- Error banner -->
+        <q-banner
+          v-if="errorMessage"
+          dense
+          class="bg-negative text-white q-mb-md"
+        >
+          <template #avatar>
+            <q-icon
+              name="error"
+            />
+          </template>
+          You have lost connection to the internet. This app is offline.
+        </q-banner>
         <div
           class="text-h6 q-mb-md text-capitalize"
         >
@@ -232,36 +245,23 @@ const loading = ref(false)
 const possible = ref(true)
 const timer = ref<NodeJS.Timer | null>(null)
 const seconds = ref(0)
+const errorMsg = ref('')
 
 onBeforeUnmount(() => {
   destroyTimer()
 })
 
-const scrapping = async () => {
-  try {
-    loading.value = true
-    createTimer()
-    const res = await invoke('scraping')
-    // const res = await invoke('scrapping-images')
-    console.log(res)
-    // Prevent multiple click after
-  } catch (e) {
-    console.error(e)
-  } finally {
-    loading.value = false
-  }
-}
-
 const handleScrapping = async (type: 'xlsx' | 'csv' | 'pdf' | 'pdfWithTemplate' | 'txt' | 'images') => {
   try {
     loading.value = true
+    errorMsg.value = ''
     createTimer()
     if (type === 'xlsx') {
-      console.log(await invoke('scrap-to-xlsx-test'))
+      await invoke('scrap-to-xlsx-test')
     } else if (type=== 'csv') {
-      console.log(await invoke('scrap-to-csv-test'))
+      await invoke('scrap-to-csv-test')
     } else if (type === 'pdf') {
-      console.log(await invoke('scrap-pdf-test'))
+      await invoke('scrap-pdf-test')
     } else if (type === 'pdfWithTemplate') {
       await invoke('scrap-pdf-with-template-test')
     } else if (type === 'txt') {
@@ -272,6 +272,7 @@ const handleScrapping = async (type: 'xlsx' | 'csv' | 'pdf' | 'pdfWithTemplate' 
 
   } catch (e) {
     console.error(e)
+    errorMsg.value = t('views.Home.errorMsg')
   } finally {
     loading.value = false
   }
