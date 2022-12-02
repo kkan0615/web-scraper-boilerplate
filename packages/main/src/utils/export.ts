@@ -74,33 +74,39 @@ export const exportToTxt = async (filename: string, data: any[]) => {
   }
 }
 
-export const exportToPDF = async (page: puppeteer.Page) => {
-  const appSetting = getAppSetting()
-  const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
+export const exportToPDF = async (filename: string, page: puppeteer.Page) => {
+  try {
+    const appSetting = getAppSetting()
+    const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
 
-  let fileNameWithPath = `${filePath}/awesome-test-pdf.pdf`
-  let i = 0
-  while (await fileNameCheck(fileNameWithPath)) {
-    fileNameWithPath = `${filePath}/awesome-test-pdf (${++i}).pdf`
+    let fileNameWithPath = `${filePath}/${filename}.pdf`
+    let i = 0
+    while (await fileNameCheck(fileNameWithPath)) {
+      fileNameWithPath = `${filePath}/${filename} (${++i}).pdf`
+    }
+
+    await page.pdf({
+      path: fileNameWithPath,
+      margin: { top: '100px', right: '50px', bottom: '100px', left: '50px' },
+      printBackground: true,
+      format: 'A4',
+    })
+
+    return true
+  } catch (e) {
+    console.error(e)
+    throw e
   }
-  const pdf = await page.pdf({
-    path: fileNameWithPath,
-    margin: { top: '100px', right: '50px', bottom: '100px', left: '50px' },
-    printBackground: true,
-    format: 'A4',
-  })
-
-  return pdf
 }
 
-export const exportToPDFWithTemplate = async () => {
+export const exportToPDFWithTemplate = async (filename: string, result: any) => {
   const appSetting = getAppSetting()
   const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
   // const pdf = new jsPDF()
-  let fileNameWithPath = `${filePath}/awesome-test-pdf.pdf`
+  let fileNameWithPath = `${filePath}/${filename}.pdf`
   let i = 0
   while (await fileNameCheck(fileNameWithPath)) {
-    fileNameWithPath = `${filePath}/awesome-test-pdf (${++i}).pdf`
+    fileNameWithPath = `${filePath}/${filename} (${++i}).pdf`
   }
 
   const htmlEl = testTemplate

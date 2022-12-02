@@ -152,7 +152,7 @@ export const scrapingImages = async () => {
   }
 }
 
-export const scrapingPDF = async () => {
+export const scrapPageForTest = async () => {
   try {
     // Launch browser
     const browser = await puppeteer.launch({
@@ -165,9 +165,8 @@ export const scrapingPDF = async () => {
     await page.goto('https://stackoverflow.com/questions/18191893/generate-pdf-from-html-in-div-using-javascript', {
       waitUntil: 'networkidle2',
     })
-    await exportToPDF(page)
-    await browser.close()
-    return 'success'
+
+    return { page, browser }
   } catch (e) {
     console.error(e)
     throw e
@@ -187,7 +186,7 @@ export const scrapingPDFWithTemplate = async () => {
       waitUntil: 'networkidle2',
     })
     // const pageHTML = await page.evaluate(() => document.body.innerHTML)
-    await exportToPDFWithTemplate()
+    // await exportToPDFWithTemplate('as')
     await browser.close()
     return 'success'
   } catch (e) {
@@ -198,4 +197,5 @@ export const scrapingPDFWithTemplate = async () => {
 
 export default {
   scrapTableForTest,
+  scrapPageForTest,
 }
