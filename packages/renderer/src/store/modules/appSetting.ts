@@ -9,7 +9,8 @@ export const useAppSettingStore = defineStore('appSetting', {
     return {
       autoLaunch: false,
       trayExit: true,
-      downloadPath: ''
+      downloadPath: '',
+      language: '',
     }
   },
   actions: {
@@ -17,6 +18,7 @@ export const useAppSettingStore = defineStore('appSetting', {
       this.autoLaunch = args.autoLaunch
       this.trayExit = args.trayExit
       this.downloadPath = args.downloadPath
+      this.language = args.language
     },
   },
 })

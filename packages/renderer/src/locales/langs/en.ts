@@ -62,7 +62,7 @@ const common = {
     },
     labels: {
       action: 'action',
-      supportedLanguage: {
+      languages: {
         en: 'English',
         ko: '한국어'
       },
@@ -119,6 +119,11 @@ const own = {
       pageTitle: 'home',
       scrapping: 'Scrapping'
     },
+    settings: {
+      general: {
+        language: 'language'
+      }
+    }
   },
 }
 

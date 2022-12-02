@@ -20,6 +20,11 @@ export const getAppSetting = () => {
   if (!appSetting.downloadPath) {
     appSetting.downloadPath = app.getPath('downloads')
   }
+
+  if (!appSetting.language) {
+    appSetting.language = app.getLocale().split('-')[0]
+  }
+
   return appSetting
 }
 

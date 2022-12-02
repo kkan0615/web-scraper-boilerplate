@@ -20,7 +20,6 @@ export const useScrapSettingStore = defineStore('scrapSetting', {
   },
   actions: {
     setState(args: ScrapSetting) {
-      console.log(args)
       this.fileNames = args.fileNames
     },
   },

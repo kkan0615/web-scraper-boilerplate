@@ -29,6 +29,15 @@
           />
         </div>
       </div>
+      <!-- language -->
+      <div>
+        <div
+          class="text-h6 text-capitalize"
+        >
+          {{ t('views.settings.general.language') }}
+        </div>
+        <LanguageSelect />
+      </div>
       <!-- Download path -->
       <div>
         <div
@@ -64,6 +73,7 @@ import { useAppSettingStore } from '@/store/modules/appSetting'
 import { useElectron } from '@/utils/useElectron'
 import { AppSetting } from '@/types/appSetting'
 import { useI18n } from 'vue-i18n'
+import LanguageSelect from '@/components/forms/Select/Language.vue'
 
 const { t } = useI18n()
 const { invoke } = useElectron()

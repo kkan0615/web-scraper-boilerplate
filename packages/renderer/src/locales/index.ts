@@ -8,6 +8,7 @@ export const DefaultFallbackLocale = 'en'
 const messages: Record<SupportedLanguage, any> = {
   /* English */
   en: enDictionary,
+  ko: {}
   /* Korean */
   // ko: koDictionary,
 }

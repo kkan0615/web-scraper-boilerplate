@@ -26,7 +26,7 @@ export const createAppWindow = async () => {
     : new URL('../dist/renderer/index.html', `file://${__dirname}`).toString()
 
   if (isDev) {
-  // Open chrome devtools
+    // Open chrome devtools
     appWindow.webContents.openDevTools()
   }
 

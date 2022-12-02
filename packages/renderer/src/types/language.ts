@@ -1,2 +1,2 @@
-export type SupportedLanguage = 'en'
-export const supportedLanguages: SupportedLanguage[] = ['en']
+export type SupportedLanguage = 'en' | 'ko'
+export const supportedLanguages: SupportedLanguage[] = ['en', 'ko']
