@@ -1,5 +1,5 @@
 import { app, ipcMain, dialog, OpenDialogOptions, shell } from 'electron'
-import { scrap, scrapingImages } from '../utils/scrap'
+import { scrapingImages } from '../utils/scrap'
 import { getAppSetting, getScrapSetting, setAppSetting, setScrapSetting } from '../stores/setting'
 import { AppSetting } from '../types/appSetting'
 import scrapService from './scrap'
@@ -26,7 +26,7 @@ ipcMain.handle('get-scrap-setting', () => {
 ipcMain.handle('set-scrap-setting', (event, args: Partial<ScrapSetting>) => {
   return setScrapSetting(args)
 })
-ipcMain.handle('scraping', scrap)
+// ipcMain.handle('scraping', scrap)
 ipcMain.handle('scrap-images-test', scrapingImages)
 ipcMain.handle('scrap-pdf-test', scrapService.scrapPDFTestService)
 ipcMain.handle('scrap-pdf-with-template-test', scrapService.scrapPDFTWithTemplateService)

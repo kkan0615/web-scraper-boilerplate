@@ -92,7 +92,7 @@ export const scrapPDFTestService = async () => {
 export const scrapPDFTWithTemplateService = async () => {
   try {
     const scrapSetting = getScrapSetting()
-    const result = await scrapUtil.scrapPageForTest()
+    const result = await scrapUtil.scrapAmazonProductsForTest()
 
     await exportToPDFWithTemplate(scrapSetting.fileNames['pdf-with-template'], result)
 

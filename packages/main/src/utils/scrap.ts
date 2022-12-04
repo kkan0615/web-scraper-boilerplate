@@ -4,9 +4,8 @@ import isDev from 'electron-is-dev'
 import axios from 'axios'
 import fs from 'fs/promises'
 import { app } from 'electron'
-import { ExcelArg, ExcelArgSheet, exportToPDF, exportToPDFWithTemplate } from '../utils/export'
 
-export const scrap = async () => {
+export const scrapAmazonProductsForTest = async () => {
   // Launch browser
   const browser = await puppeteer.launch({
     // devtools: isDev
@@ -40,11 +39,11 @@ export const scrap = async () => {
     const foundPriceWhole = $(el).find('.a-offscreen')
     const priceWhole = foundPriceWhole.length >= 2 ? foundPriceWhole.last().text() : ''
     const salePriceWhole = foundPriceWhole.length >= 2 ? foundPriceWhole.first().text() : foundPriceWhole.text()
-    // Get the tile
-    const title = $(el).find('[class="a-size-base-plus a-color-base a-text-normal"]').text()
+    // Get the name
+    const name = $(el).find('[class="a-size-base-plus a-color-base a-text-normal"]').text()
 
     result.push({
-      title,
+      name,
       priceSymbol,
       salePriceWhole,
       priceWhole,
@@ -196,6 +195,7 @@ export const scrapingPDFWithTemplate = async () => {
 }
 
 export default {
+  scrapAmazonProductsForTest,
   scrapTableForTest,
   scrapPageForTest,
 }

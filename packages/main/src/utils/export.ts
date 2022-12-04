@@ -109,7 +109,7 @@ export const exportToPDFWithTemplate = async (filename: string, result: any) => 
     fileNameWithPath = `${filePath}/${filename} (${++i}).pdf`
   }
 
-  const htmlEl = testTemplate
+  const htmlEl = testTemplate(result)
   // Create a browser instance
   const browser = await puppeteer.launch()
 
