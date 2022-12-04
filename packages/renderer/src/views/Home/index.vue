@@ -30,7 +30,7 @@
       >
         <!-- Error banner -->
         <q-banner
-          v-if="errorMessage"
+          v-if="errorMsg"
           dense
           class="bg-negative text-white q-mb-md"
         >
