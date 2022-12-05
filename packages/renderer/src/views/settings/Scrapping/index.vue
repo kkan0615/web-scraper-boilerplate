@@ -12,13 +12,38 @@
         >
           File names
         </div>
-        <q-input
-          v-model="xlsxFileName"
-          label="xlsx"
-          dense
-          outlined
-          @update:model-value="onUpdateFileNames"
-        />
+        <div
+          class="flex column q-col-gutter-md"
+        >
+          <q-input
+            v-model="xlsxFileName"
+            label="xlsx"
+            dense
+            outlined
+            @update:model-value="onUpdateFileNames"
+          />
+          <q-input
+            v-model="pdfFileName"
+            label="PDF"
+            dense
+            outlined
+            @update:model-value="onUpdateFileNames"
+          />
+          <q-input
+            v-model="pdfWithTemplateFileName"
+            label="pdf with template"
+            dense
+            outlined
+            @update:model-value="onUpdateFileNames"
+          />
+          <q-input
+            v-model="imagesFileName"
+            label="image"
+            dense
+            outlined
+            @update:model-value="onUpdateFileNames"
+          />
+        </div>
       </div>
     </div>
   </q-page>

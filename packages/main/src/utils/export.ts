@@ -6,6 +6,8 @@ import { fileNameCheck } from './file'
 import puppeteer from 'puppeteer'
 import { getAppSetting } from '../stores/setting'
 import { testTemplate } from '../templates/test'
+import $ from 'cheerio'
+import axios from 'axios'
 
 export interface ExcelArgSheet {
   name: string
@@ -132,4 +134,34 @@ export const exportToPDFWithTemplate = async (filename: string, result: any) => 
 
   // Close the browser instance
   await browser.close()
+}
+
+export const exportToImages = async (foldername: string, images: string[]) => {
+  try {
+    const appSetting = getAppSetting()
+    const filePath = appSetting.downloadPath ? appSetting.downloadPath : app.getPath('downloads')
+
+    let folderPath = `${filePath}/${foldername}`
+    let i = 0
+    while (await fileNameCheck(folderPath)) {
+      folderPath = `${filePath}/${foldername} (${++i})`
+    }
+
+    await fs.mkdir(folderPath)
+    await Promise.all(images.map(async (src, i) => {
+      // Get price symbol
+      if(src && src.split('.')[1] !== 'svg') {
+        const res = await axios.get(src, {
+          responseType: 'arraybuffer'
+        })
+
+        await fs.writeFile(`${folderPath}/image (${i}).png`, res.data)
+      }
+    }))
+
+    return true
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
 }

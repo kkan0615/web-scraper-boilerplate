@@ -113,33 +113,28 @@ export const scrapTableForTest = async () => {
   return result
 }
 
-export const scrapingImages = async () => {
+export const scrapImagesForTest = async () => {
   try {
     // Launch browser
     const browser = await puppeteer.launch({
-      // devtools: isDev
-      // headless: true,
+      devtools: isDev,
+      headless: true,
     })
     // Open page
     const page = await browser.newPage()
     // Move to url
-    await page.goto('', {
+    await page.goto('https://www.freepik.com/search?format=search&last_filter=selection&last_value=1&query=coffee&selection=1', {
       waitUntil: 'networkidle2',
     })
 
-    let result: Buffer[] = []
+    let result: string[] = []
     // Get the page DOM
     const pageHTML = await page.evaluate(() => document.body.innerHTML)
-    await fs.mkdir(`${app.getPath('downloads')}/output`)
-    $('img', pageHTML).map( async (i, el) => {
+    $('.row > .showcase__item', pageHTML).map( async (i, el) => {
       // Get price symbol
-      let src = $(el).attr('src')
+      let src = $(el).attr('data-image')
       if(src && src.split('.')[1] !== 'svg') {
-        const res = await axios.get(src, {
-          responseType: 'arraybuffer'
-        })
-
-        await fs.writeFile(`${app.getPath('downloads')}/output/image (${i}).png`, res.data)
+        result.push(src)
       }
     })
 
@@ -198,4 +193,5 @@ export default {
   scrapAmazonProductsForTest,
   scrapTableForTest,
   scrapPageForTest,
+  scrapImagesForTest,
 }

@@ -1,5 +1,12 @@
-import scrapUtil from '../utils/scrap'
-import { ExcelArgSheet, exportToExcel, exportToPDF, exportToPDFWithTemplate, exportToTxt } from '../utils/export'
+import scrapUtil, { scrapImagesForTest } from '../utils/scrap'
+import {
+  ExcelArgSheet,
+  exportToExcel,
+  exportToImages,
+  exportToPDF,
+  exportToPDFWithTemplate,
+  exportToTxt
+} from '../utils/export'
 import { getScrapSetting } from '../stores/setting'
 
 export const scrapXLSXTestService = async () => {
@@ -103,10 +110,25 @@ export const scrapPDFTWithTemplateService = async () => {
   }
 }
 
+export const scrapImagesTestService = async () => {
+  try {
+    const scrapSetting = getScrapSetting()
+    const result = await scrapUtil.scrapImagesForTest()
+
+    await exportToImages(scrapSetting.fileNames['images'], result)
+
+    return true
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
 export default {
   scrapXLSXTestService,
   scrapCSVTestService,
   scrapTextTestService,
   scrapPDFTestService,
   scrapPDFTWithTemplateService,
+  scrapImagesTestService,
 }
