@@ -14,9 +14,14 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/settings/General/index.vue'),
       },
       {
-        name: 'SettingScrapping',
-        path: 'scrapping',
+        name: 'SettingScrap',
+        path: 'scrap',
         component: () => import('@/views/settings/Scrapping/index.vue'),
+      },
+      {
+        name: 'SettingSchedule',
+        path: 'schedule',
+        component: () => import('@/views/settings/Schedule/index.vue'),
       },
       {
         name: 'SettingVersion',

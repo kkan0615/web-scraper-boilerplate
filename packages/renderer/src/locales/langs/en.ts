@@ -2,6 +2,7 @@ const common = {
   test: 'Hello World',
   commons: {
     tooltips: {
+      add: 'add',
       search: 'search',
       edit: 'edit',
       delete: 'delete',
@@ -9,6 +10,7 @@ const common = {
       back: 'back'
     },
     btns: {
+      add: 'add',
       create: 'create',
       save: 'save',
       cancel: 'cancel',
@@ -97,7 +99,8 @@ const own = {
   titles: {
     menus: {
       settingGeneral: 'general',
-      settingScrapping: 'scrapping',
+      SettingScrap: 'scrap',
+      SettingSchedule: 'schedule',
       settingVersion: 'version',
     },
 

@@ -4,6 +4,7 @@ export interface Schedule {
   minute: number // 0 to 59
   day: number // 0 is Monday 7 is Sunday
   isOn: boolean
+  isDefault: boolean
 }
 
 /**
@@ -15,6 +16,7 @@ export const defaultSchedules: Schedule[] = [
     hour: 20,
     minute: 50,
     day: 4,
-    isOn: true
+    isOn: true,
+    isDefault: true
   },
 ]

@@ -1,8 +1,11 @@
 import { app, ipcMain, dialog, OpenDialogOptions, shell } from 'electron'
 import { getAppSetting, getScrapSetting, setAppSetting, setScrapSetting } from '../stores/setting'
 import { AppSetting } from '../types/appSetting'
-import scrapService, { scrapImagesTestService } from './scrap'
+import scrapService from './scrap'
 import { ScrapSetting } from '../types/scrapSetting'
+import { addSchedule, deleteSchedule, getSchedules, updateSchedule } from '../stores/scheduler'
+import { Schedule } from '../types/schedule'
+import { initSchedules } from '../utils/schedule'
 
 ipcMain.on('open-external',async (event, arg: string) => {
   await shell.openExternal(arg)
@@ -24,6 +27,24 @@ ipcMain.handle('get-scrap-setting', () => {
 })
 ipcMain.handle('set-scrap-setting', (event, args: Partial<ScrapSetting>) => {
   return setScrapSetting(args)
+})
+ipcMain.handle('get-schedules', () => {
+  return getSchedules()
+})
+ipcMain.handle('add-schedule', (event, args: Omit<Schedule, 'id'>) => {
+  addSchedule(args)
+  initSchedules()
+})
+ipcMain.handle('update-schedule', (event, args: Schedule) => {
+  updateSchedule(args)
+  initSchedules()
+})
+ipcMain.handle('delete-schedule', (event, args: string) => {
+  if (!args)
+    throw new Error('no id passed')
+
+  deleteSchedule(args)
+  initSchedules()
 })
 // ipcMain.handle('scraping', scrap)
 ipcMain.handle('scrap-images-test', scrapService.scrapImagesTestService)

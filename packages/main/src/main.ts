@@ -6,8 +6,7 @@ import { autoUpdater } from 'electron-updater'
 import './services'
 import { createTray, destroyTray } from './windows/tray'
 import { getAppSetting } from './stores/setting'
-import { scheduledJobs } from 'node-schedule'
-import { initSchedules } from './utils/schedule'
+import { cancelAllSchedules, initSchedules } from './utils/schedule'
 
 const isSingleInstance = app.requestSingleInstanceLock()
 
@@ -31,11 +30,7 @@ app.on('window-all-closed', async () => {
 })
 
 app.on('before-quit', () => {
-  // Cancel all jobs
-  const jobs = scheduledJobs
-  for (const job in jobs ) {
-    jobs[job].cancel()
-  }
+  cancelAllSchedules()
 })
 
 app.on('activate', () => {
@@ -47,9 +42,10 @@ app.on('activate', () => {
 app
   .whenReady()
   .then(async () => {
+    console.log(app.getPath('userData'))
+
     // Initialize schedules
     initSchedules()
-
     await createTray()
     await createAppWindow()
     await autoUpdater.checkForUpdates()

@@ -1,9 +1,6 @@
 import puppeteer from 'puppeteer'
 import $ from 'cheerio'
 import isDev from 'electron-is-dev'
-import axios from 'axios'
-import fs from 'fs/promises'
-import { app } from 'electron'
 
 export const scrapAmazonProductsForTest = async () => {
   // Launch browser

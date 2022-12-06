@@ -42,7 +42,7 @@
         </q-item-section>
       </q-item>
       <q-item
-        :to="{ name: 'SettingScrapping' }"
+        :to="{ name: 'SettingScrap' }"
         clickable
         active-class="menu-active-link"
       >
@@ -53,7 +53,22 @@
         <q-item-section
           class="text-capitalize"
         >
-          {{ t('titles.menus.settingScrapping') }}
+          {{ t('titles.menus.SettingScrap') }}
+        </q-item-section>
+      </q-item>
+      <q-item
+        :to="{ name: 'SettingSchedule' }"
+        clickable
+        active-class="menu-active-link"
+      >
+        <q-item-section avatar>
+          <q-icon name="schedule" />
+        </q-item-section>
+
+        <q-item-section
+          class="text-capitalize"
+        >
+          {{ t('titles.menus.SettingSchedule') }}
         </q-item-section>
       </q-item>
       <q-item

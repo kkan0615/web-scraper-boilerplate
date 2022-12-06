@@ -6,7 +6,7 @@ import { pinia } from '@/store'
 // Router
 import router from '@/router'
 /* Quasar */
-import { Quasar } from 'quasar'
+import { Quasar, Dialog } from 'quasar'
 // Import Quasar css
 import 'quasar/src/css/index.sass'
 // Import icon libraries
@@ -34,6 +34,8 @@ app.use(i18n)
 app.use(pinia)
 app.use(router)
 app.use(Quasar, {
-  plugins: {}, // import Quasar plugins and add here
+  plugins: {
+    Dialog,
+  }, // import Quasar plugins and add here
 })
 app.mount('#app')
