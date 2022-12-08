@@ -31,7 +31,7 @@ ipcMain.handle('set-scrap-setting', (event, args: Partial<ScrapSetting>) => {
 ipcMain.handle('get-schedules', () => {
   return getSchedules()
 })
-ipcMain.handle('add-schedule', (event, args: Omit<Schedule, 'id'>) => {
+ipcMain.handle('add-schedule', (event, args: Omit<Schedule, 'id' | 'isDefault' | 'isOn'>) => {
   addSchedule(args)
   initSchedules()
 })

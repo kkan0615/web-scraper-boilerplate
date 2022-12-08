@@ -68,6 +68,24 @@ const common = {
         en: 'English',
         ko: '한국어'
       },
+      dayOfWeek:{
+        sunday: 'sunday',
+        monday: 'monday',
+        tuesday: 'tuesday',
+        wednesday: 'wednesday',
+        thursday: 'thursday',
+        friday: 'friday',
+        saturday: 'saturday',
+        short: {
+          sunday: 'sun',
+          monday: 'mon',
+          tuesday: 'tue',
+          wednesday: 'wed',
+          thursday: 'thu',
+          friday: 'fri',
+          saturday: 'sat',
+        }
+      },
     },
     types: {
       models: {
@@ -113,6 +131,11 @@ const own = {
         autoLaunch: 'Launch App when you boot computer',
         trayExit: 'Use tray mode when exit the window',
       }
+    },
+    schedule: {
+      hour: 'hour',
+      minute: 'minute',
+      day: 'day',
     }
   },
   views: {

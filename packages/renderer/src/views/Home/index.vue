@@ -3,28 +3,28 @@
     class="flex flex-center"
     style="height: 100vh"
   >
-    <div>
-      <header
-        class="flex"
+    <header
+      class="flex fixed-top q-pa-sm"
+    >
+      <router-link
+        :to="{ name: 'Setting' }"
+        class="q-ml-auto"
       >
-        <router-link
-          :to="{ name: 'Setting' }"
-          class="q-ml-auto"
+        <q-btn
+          flat
+          round
         >
-          <q-btn
-            flat
-            round
-          >
-            <Icon
-              class="text-h5"
-              icon="ic:outline-settings"
-            />
-            <q-tooltip>
-              {{ t('tooltips.menus.setting') }}
-            </q-tooltip>
-          </q-btn>
-        </router-link>
-      </header>
+          <Icon
+            class="text-h5"
+            icon="ic:outline-settings"
+          />
+          <q-tooltip>
+            {{ t('tooltips.menus.setting') }}
+          </q-tooltip>
+        </q-btn>
+      </router-link>
+    </header>
+    <div>
       <div
         class="text-center"
       >
@@ -159,74 +159,74 @@
         >
           Try again after {{ seconds }} seconds
         </div>
-        <div
-          class="q-mt-sm"
-        >
-          <div
-            class="row q-gutter-sm justify-center"
-          >
-            <div>
-              <q-btn
-                flat
-                round
-                @click="exportData('pdf')"
-              >
-                <Icon
-                  class="text-h5"
-                  icon="fluent:document-pdf-16-regular"
-                />
-                <q-tooltip>
-                  {{ t('tooltips.fileExts.downloads.pdf') }}
-                </q-tooltip>
-              </q-btn>
-            </div>
-            <div>
-              <q-btn
-                flat
-                round
-                @click="exportData('csv')"
-              >
-                <Icon
-                  class="text-h5"
-                  icon="iwwa:file-csv"
-                />
-                <q-tooltip>
-                  {{ t('tooltips.fileExts.downloads.csv') }}
-                </q-tooltip>
-              </q-btn>
-            </div>
-            <div>
-              <q-btn
-                flat
-                round
-                @click="exportData('excel')"
-              >
-                <Icon
-                  class="text-h6"
-                  icon="uiw:file-excel"
-                />
-                <q-tooltip>
-                  {{ t('tooltips.fileExts.downloads.xlsx') }}
-                </q-tooltip>
-              </q-btn>
-            </div>
-            <div>
-              <q-btn
-                flat
-                round
-                @click="exportData('txt')"
-              >
-                <Icon
-                  class="text-h6"
-                  icon="icon-park-outline:file-txt-one"
-                />
-                <q-tooltip>
-                  {{ t('tooltips.fileExts.downloads.txt') }}
-                </q-tooltip>
-              </q-btn>
-            </div>
-          </div>
-        </div>
+        <!--        <div-->
+        <!--          class="q-mt-sm"-->
+        <!--        >-->
+        <!--          <div-->
+        <!--            class="row q-gutter-sm justify-center"-->
+        <!--          >-->
+        <!--            <div>-->
+        <!--              <q-btn-->
+        <!--                flat-->
+        <!--                round-->
+        <!--                @click="exportData('pdf')"-->
+        <!--              >-->
+        <!--                <Icon-->
+        <!--                  class="text-h5"-->
+        <!--                  icon="fluent:document-pdf-16-regular"-->
+        <!--                />-->
+        <!--                <q-tooltip>-->
+        <!--                  {{ t('tooltips.fileExts.downloads.pdf') }}-->
+        <!--                </q-tooltip>-->
+        <!--              </q-btn>-->
+        <!--            </div>-->
+        <!--            <div>-->
+        <!--              <q-btn-->
+        <!--                flat-->
+        <!--                round-->
+        <!--                @click="exportData('csv')"-->
+        <!--              >-->
+        <!--                <Icon-->
+        <!--                  class="text-h5"-->
+        <!--                  icon="iwwa:file-csv"-->
+        <!--                />-->
+        <!--                <q-tooltip>-->
+        <!--                  {{ t('tooltips.fileExts.downloads.csv') }}-->
+        <!--                </q-tooltip>-->
+        <!--              </q-btn>-->
+        <!--            </div>-->
+        <!--            <div>-->
+        <!--              <q-btn-->
+        <!--                flat-->
+        <!--                round-->
+        <!--                @click="exportData('excel')"-->
+        <!--              >-->
+        <!--                <Icon-->
+        <!--                  class="text-h6"-->
+        <!--                  icon="uiw:file-excel"-->
+        <!--                />-->
+        <!--                <q-tooltip>-->
+        <!--                  {{ t('tooltips.fileExts.downloads.xlsx') }}-->
+        <!--                </q-tooltip>-->
+        <!--              </q-btn>-->
+        <!--            </div>-->
+        <!--            <div>-->
+        <!--              <q-btn-->
+        <!--                flat-->
+        <!--                round-->
+        <!--                @click="exportData('txt')"-->
+        <!--              >-->
+        <!--                <Icon-->
+        <!--                  class="text-h6"-->
+        <!--                  icon="icon-park-outline:file-txt-one"-->
+        <!--                />-->
+        <!--                <q-tooltip>-->
+        <!--                  {{ t('tooltips.fileExts.downloads.txt') }}-->
+        <!--                </q-tooltip>-->
+        <!--              </q-btn>-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
       </div>
     </div>
   </div>

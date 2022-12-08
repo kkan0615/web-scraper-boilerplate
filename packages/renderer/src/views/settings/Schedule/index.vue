@@ -15,36 +15,57 @@
     <q-table
       flat
       bordered
-      :rows="schedules"
+      :rows="rows"
       :columns="columns"
       row-key="id"
     >
       <template #top>
-        <q-btn
-          class="q-ml-auto"
-          icon="add"
-          color="primary"
-          :label="t('commons.btns.add')"
+        <form-dialog
+          :update="false"
+          @saved="loadSchedules"
         >
-          <q-tooltip>
-            {{ t('commons.tooltips.add') }}
-          </q-tooltip>
-        </q-btn>
+          <template
+            #activator="{open}"
+          >
+            <q-btn
+              class="q-ml-auto"
+              icon="add"
+              color="primary"
+              :label="t('commons.btns.add')"
+              @click="open"
+            >
+              <q-tooltip>
+                {{ t('commons.tooltips.add') }}
+              </q-tooltip>
+            </q-btn>
+          </template>
+        </form-dialog>
       </template>
       <template #body-cell-action="props">
         <q-td :props="props">
           <div>
-            <q-btn
-              color="primary"
-              icon="edit"
-              flat
-              round
-              dense
+            <form-dialog
+              :schedule="props.row"
+              update
+              @saved="loadSchedules"
             >
-              <q-tooltip>
-                {{ t('commons.tooltips.edit') }}
-              </q-tooltip>
-            </q-btn>
+              <template
+                #activator="{open}"
+              >
+                <q-btn
+                  color="primary"
+                  icon="edit"
+                  flat
+                  round
+                  dense
+                  @click="open"
+                >
+                  <q-tooltip>
+                    {{ t('commons.tooltips.edit') }}
+                  </q-tooltip>
+                </q-btn>
+              </template>
+            </form-dialog>
             <q-btn
               v-if="!props.row.isDefault"
               color="negative"
@@ -73,19 +94,20 @@
   </q-page>
 </template>
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useScrapSettingStore } from '@/store/modules/scrapSetting'
 import { useElectron } from '@/utils/useElectron'
 import { DayMap, Schedule } from '@/types/schedule'
 import { QTableColumn, useQuasar } from 'quasar'
+import FormDialog from '@/views/settings/Schedule/components/FormDialog.vue'
 
 const { t } = useI18n()
 const $q = useQuasar()
 const { invoke } = useElectron()
 const scrapSettingStore = useScrapSettingStore()
 
-const schedules = ref([])
+const schedules = ref<Schedule[]>([])
 const columns: QTableColumn[] = [
   {
     name: 'index',
@@ -102,7 +124,8 @@ const columns: QTableColumn[] = [
     name: 'day',
     label: 'Day',
     align: 'left',
-    field: (row: Schedule) => DayMap[row.day],
+    field: (row: Schedule) => t(`commons.labels.dayOfWeek.${DayMap[row.day]}`).charAt(0).toUpperCase()
+        + t(`commons.labels.dayOfWeek.${DayMap[row.day]}`).slice(1),
   },
   {
     name: 'ison',
@@ -117,6 +140,13 @@ const columns: QTableColumn[] = [
     field: ''
   },
 ]
+
+const rows = computed(() => schedules.value.map((schedule, index) => {
+  return {
+    index: index + 1,
+    ...schedule,
+  }
+}))
 
 onBeforeMount(async () => {
   await loadSchedules()

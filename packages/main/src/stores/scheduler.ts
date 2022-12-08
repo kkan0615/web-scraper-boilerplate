@@ -16,14 +16,15 @@ export const getSchedules = (): Schedule[] => {
   return defaultSchedules
 }
 
-export const addSchedule = (schedule: Omit<Schedule, 'id'>) => {
+export const addSchedule = (schedule: Omit<Schedule, 'id' | 'isDefault' | 'isOn'>) => {
   const schedules = getSchedules()
   const newId = new Date().toISOString()
 
   electronStore.set('schedules', schedules.concat([{
     id: new Date().toISOString(),
     ...schedule,
-    isDefault: true,
+    isOn: true,
+    isDefault: false,
   }]))
 
   return newId

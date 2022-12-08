@@ -2,7 +2,7 @@
   <q-drawer
     v-model="open"
     class="bg-primary text-white"
-    :width="240"
+    :width="200"
     :breakpoint="0"
     show-if-above
     bordered

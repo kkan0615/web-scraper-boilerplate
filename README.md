@@ -102,21 +102,15 @@ Handle export to file
 # Todo
 ## Main
 - Add electron-store
-  - filename
   - schedules
 - Scrapping Examples
 - Export
-  - PDF (Template 로 out에 문제 있음, string으로 따와야 할 수 도 있음)
   - TXT
   - Images/video
-- Add schedule feature
 - Tray and program off by tray "exit"
 ## Renderer
+- Move schedule logic to store
 - setting page
   - General
   - Scrapping
     - Download manually
-    - FileName
-  - Schedule
-    - Scheduled list
-    - CRUD
