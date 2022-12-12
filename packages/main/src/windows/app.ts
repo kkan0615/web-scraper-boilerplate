@@ -8,6 +8,7 @@ export const createAppWindow = async () => {
   // Create the browser window.
   appWindow = new BrowserWindow({
     autoHideMenuBar: true,
+    frame: false,
     width: 780,
     height: 480,
     webPreferences: {

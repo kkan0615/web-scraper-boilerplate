@@ -1,30 +1,6 @@
 <template>
-  <div
-    class="flex flex-center"
-    style="height: 100vh"
-  >
-    <header
-      class="flex fixed-top q-pa-sm"
-    >
-      <router-link
-        :to="{ name: 'Setting' }"
-        class="q-ml-auto"
-      >
-        <q-btn
-          flat
-          round
-        >
-          <Icon
-            class="text-h5"
-            icon="ic:outline-settings"
-          />
-          <q-tooltip>
-            {{ t('tooltips.menus.setting') }}
-          </q-tooltip>
-        </q-btn>
-      </router-link>
-    </header>
-    <div>
+  <q-page>
+    <q-page-container>
       <div
         class="text-center"
       >
@@ -228,8 +204,8 @@
         <!--          </div>-->
         <!--        </div>-->
       </div>
-    </div>
-  </div>
+    </q-page-container>
+  </q-page>
 </template>
 <script setup lang="ts">
 import { onBeforeUnmount, ref } from 'vue'

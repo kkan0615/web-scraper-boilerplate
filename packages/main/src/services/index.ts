@@ -1,11 +1,17 @@
 import { app, ipcMain, dialog, OpenDialogOptions, shell } from 'electron'
 import { getAppSetting, getScrapSetting, setAppSetting, setScrapSetting } from '../stores/setting'
 import { AppSetting } from '../types/appSetting'
-import scrapService from './scrap'
 import { ScrapSetting } from '../types/scrapSetting'
 import { addSchedule, deleteSchedule, getSchedules, updateSchedule } from '../stores/scheduler'
 import { Schedule } from '../types/schedule'
 import { initSchedules } from '../utils/schedule'
+// External services
+import appService from './app'
+import scrapService from './scrap'
+
+ipcMain.on('close-window', appService.closeWindow)
+ipcMain.on('toggle-maximize-window', appService.toggleMaximizeWindow)
+ipcMain.on('minimize-window', appService.minimizeWindow)
 
 ipcMain.on('open-external',async (event, arg: string) => {
   await shell.openExternal(arg)

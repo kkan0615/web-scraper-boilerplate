@@ -92,7 +92,6 @@ Handle scrap result
 ## main/utils/export.ts
 Handle export to file
 
-
 # Refs
 ## Electron
 - [cawa-93](https://github.com/cawa-93/vite-electron-builder)
@@ -103,14 +102,18 @@ Handle export to file
 ## Main
 - Add electron-store
   - schedules
+    - Add field for scrap schedule
 - Scrapping Examples
+- schedule feature
 - Export
-  - TXT
-  - Images/video
-- Tray and program off by tray "exit"
+  - video
+- Tray
+  - Open program with double click
+- Schedules
+  - Run specific scrap based on schedule 
 ## Renderer
+- i18n - Korean
 - Move schedule logic to store
 - setting page
-  - General
-  - Scrapping
-    - Download manually
+  - Schedule
+    - Add what scrap will do on this schedule

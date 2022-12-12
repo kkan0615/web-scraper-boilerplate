@@ -6,3 +6,12 @@ body, html {
 a {
   color: inherit;
 }
+
+.draggable-area {
+  webkit-user-select: none;
+  -webkit-app-region: drag;
+}
+
+.non-draggable-area {
+  -webkit-app-region: no-drag;
+}
