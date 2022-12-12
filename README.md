@@ -24,13 +24,12 @@ yarn build
 - sass/scss
 - [vue-use](https://vueuse.org/): vue utils
 - [vueuse/electron](https://vueuse.org/electron/readme.html#vueuse-electron): Electron vue-use
+- [quasar](https://quasar.dev/): CSS framework
 
 ## Scapping and export
 - [puppeteer]()
 - [cheerio]()
 - [exceljs](https://www.npmjs.com/package/exceljs)
-- [xlsx](https://www.npmjs.com/package/xlsx): Alternative (not using in here)
-- 
 
 # :file_folder: Directory Structure
 ```
@@ -117,3 +116,6 @@ Handle export to file
 - setting page
   - Schedule
     - Add what scrap will do on this schedule
+- Change title
+  - Taskbar
+  - index.html
