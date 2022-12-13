@@ -4,6 +4,7 @@ export interface Schedule {
   minute: number // 0 to 59
   day: number // 0 is Monday 7 is Sunday
   isOn: boolean
+  scraps: string[],
   isDefault: boolean
 }
 

@@ -17,6 +17,9 @@ export const createTray = async () => {
       app.quit()
     } },
   ])
+  tray.on('click', async () => {
+    appWindow ? appWindow.focus() : await createAppWindow()
+  })
   tray.setToolTip('Keyboard mouse detector application')
   tray.setContextMenu(contextMenu)
 }

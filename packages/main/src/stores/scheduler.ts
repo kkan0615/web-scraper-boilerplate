@@ -3,6 +3,7 @@ import { defaultSchedules, Schedule } from '../types/schedule'
 
 export const getSchedules = (): Schedule[] => {
   const schedules = electronStore.get('schedules') as Schedule[] | undefined
+
   if (schedules) {
     // Add default schedules
     defaultSchedules.map(defaultSchedule => {

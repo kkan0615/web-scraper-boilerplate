@@ -100,16 +100,13 @@ Handle export to file
 # Todo
 ## Main
 - Add electron-store
-  - schedules
-    - Add field for scrap schedule
 - Scrapping Examples
-- schedule feature
 - Export
   - video
-- Tray
-  - Open program with double click
 - Schedules
   - Run specific scrap based on schedule 
+- Util
+  - Notification with image
 ## Renderer
 - i18n - Korean
 - Move schedule logic to store

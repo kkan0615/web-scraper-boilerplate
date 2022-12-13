@@ -1,4 +1,4 @@
-import scrapUtil, { scrapImagesForTest } from '../utils/scrap'
+import scrapUtil from '../utils/scrap'
 import {
   ExcelArgSheet,
   exportToExcel,
