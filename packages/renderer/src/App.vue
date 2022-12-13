@@ -14,7 +14,7 @@
           icon="laptop_chromebook"
         />
         <div class="non-draggable-area">
-          Google Chrome
+          Web Scraper
         </div>
         <q-space />
         <q-btn
