@@ -17,6 +17,14 @@
           </template>
           You have lost connection to the internet. This app is offline.
         </q-banner>
+        <div>
+          <q-img
+            width="45%"
+            style="max-height: 500px"
+            fit="scale-down"
+            src="../../assets/home.png"
+          />
+        </div>
         <div
           class="text-h6 q-mb-md text-capitalize"
         >

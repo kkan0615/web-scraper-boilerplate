@@ -36,14 +36,11 @@ const common = {
       about: 'about',
     },
     messages: {
-      cancelSave: 'Would you like to cancel save?',
       saved: 'Success to saved',
       saveFailed: 'Fail to save',
       unAuthUser: 'unauthorized user',
       error: 'There is an error',
-      startWorkFailed: 'Fail to start to work',
-      offWorkFailed: 'Fail to get off the work',
-      noImg: 'No Image',
+      noImg: 'no Image',
       noData: 'no data',
       notMatched: 'It is not matched',
       validations: {
@@ -153,9 +150,7 @@ const own = {
   },
 }
 
-const enDictionary = {
+export default {
   ...common,
   ...own,
 }
-
-export default enDictionary

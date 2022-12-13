@@ -38,6 +38,7 @@ onBeforeMount(() => {
 const handleUpdate = async () => {
   locale.value = lang.value
   appSettingStore.setState(await invoke<Partial<AppSetting>>('set-app-setting', { language: lang.value }))
+  document.documentElement.setAttribute('lang', lang.value)
 }
 </script>
 <style>

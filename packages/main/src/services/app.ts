@@ -1,4 +1,4 @@
-import { ipcMain, BrowserWindow } from 'electron'
+import { BrowserWindow } from 'electron'
 
 export const closeWindow = () => {
   const focusedWindow = BrowserWindow.getFocusedWindow()
