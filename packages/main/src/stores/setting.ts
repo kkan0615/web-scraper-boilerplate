@@ -43,7 +43,8 @@ export const setAppSetting = (args: Partial<AppSetting>) => {
   // Allow auto launch
   app.setLoginItemSettings({
     openAtLogin: !!newAppSetting.autoLaunch,
-    path: app.getPath('exe')
+    path: app.getPath('exe'),
+    openAsHidden: true,
   })
 
   electronStore.set('app-setting', newAppSetting)
