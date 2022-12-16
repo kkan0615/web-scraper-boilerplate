@@ -1,4 +1,5 @@
-# Electron + vite3.0 + vue 3
+# Web-scrapper
+Manual: [Link](https://jagged-parka-538.notion.site/Manual-62160330105a49af96442bfa16043a96)
 
 # :rocket: Getting started
 ## Dev
