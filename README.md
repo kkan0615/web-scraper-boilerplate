@@ -99,7 +99,6 @@ Handle export to file
 
 # Todo
 ## Main
-- Add electron-store
 - Scrapping Examples
 - Export
   - video
@@ -108,7 +107,6 @@ Handle export to file
 - Util
   - Notification with image
 ## Renderer
-- i18n - Korean
 - Move schedule logic to store
 - setting page
   - Schedule

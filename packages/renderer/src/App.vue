@@ -2,6 +2,7 @@
   <q-layout
     view="hHh lpR fFf"
   >
+    <!-- Header -->
     <q-header
       elevated
       class="bg-primary text-white draggable-area"
@@ -12,9 +13,10 @@
           dense
           flat
           icon="laptop_chromebook"
+          :to="{ name: 'Home' }"
         />
         <div class="non-draggable-area">
-          Web Scraper
+          {{ AppTitle }}
         </div>
         <q-space />
         <q-btn
@@ -64,6 +66,7 @@ import { useAppSettingStore } from '@/store/modules/appSetting'
 import { useScrapSettingStore } from '@/store/modules/scrapSetting'
 import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
+import { AppTitle } from '@/types/appSetting'
 
 const { locale, t } = useI18n()
 const route = useRoute()

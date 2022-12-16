@@ -23,6 +23,13 @@
             @update:model-value="onUpdateFileNames"
           />
           <q-input
+            v-model="csvFileName"
+            label="csv"
+            dense
+            outlined
+            @update:model-value="onUpdateFileNames"
+          />
+          <q-input
             v-model="pdfFileName"
             label="PDF"
             dense
@@ -32,6 +39,13 @@
           <q-input
             v-model="pdfWithTemplateFileName"
             label="pdf with template"
+            dense
+            outlined
+            @update:model-value="onUpdateFileNames"
+          />
+          <q-input
+            v-model="txtFileName"
+            label="Txt"
             dense
             outlined
             @update:model-value="onUpdateFileNames"
