@@ -37,12 +37,14 @@ ipcMain.handle('set-scrap-setting', (event, args: Partial<ScrapSetting>) => {
 ipcMain.handle('get-schedules', () => {
   return getSchedules()
 })
-ipcMain.handle('add-schedule', (event, args: Omit<Schedule, 'id' | 'isDefault' | 'isOn'>) => {
-  addSchedule(args)
+ipcMain.handle('add-schedule', (event, args: string) => {
+  const newSchedule: Omit<Schedule, 'id' | 'isDefault' | 'isOn'> = JSON.parse(args)
+  addSchedule(newSchedule)
   initSchedules()
 })
-ipcMain.handle('update-schedule', (event, args: Schedule) => {
-  updateSchedule(args)
+ipcMain.handle('update-schedule', (event, args: string) => {
+  const newSchedule: Schedule = JSON.parse(args)
+  updateSchedule(newSchedule)
   initSchedules()
 })
 ipcMain.handle('delete-schedule', (event, args: string) => {

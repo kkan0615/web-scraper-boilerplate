@@ -118,7 +118,6 @@ const own = {
       SettingSchedule: 'schedule',
       settingVersion: 'version',
     },
-
   },
   types: {
     appSetting: {
@@ -126,6 +125,7 @@ const own = {
       downloadPath: 'download path',
       labels: {
         autoLaunch: 'Launch App when you boot computer',
+        trayOnLaunch: 'Open tray mode when program turn on',
         trayExit: 'Use tray mode when exit the window',
       }
     },
@@ -133,6 +133,19 @@ const own = {
       hour: 'hour',
       minute: 'minute',
       day: 'day',
+      isOn: 'on',
+      scraps: 'Events',
+      exts: {
+        time: 'time',
+      },
+    },
+    scrap: {
+      xlsx: 'xlsx',
+      csv: 'csv',
+      pdf: 'pdf',
+      pdfWithTemplate: 'pdf with template',
+      txt: 'txt',
+      images: 'images',
     }
   },
   views: {
@@ -145,7 +158,12 @@ const own = {
     settings: {
       general: {
         language: 'language'
-      }
+      },
+      scrap: {
+        titles: {
+          fileNames: 'File name'
+        }
+      },
     }
   },
 }

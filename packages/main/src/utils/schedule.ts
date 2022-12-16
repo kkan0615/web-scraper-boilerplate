@@ -13,7 +13,7 @@ export const initSchedules = () => {
         await Promise.all(schedule.scraps.map(async (scrap) => {
           if (scrap === 'xlsx') {
             await scrapService.scrapXLSXTestService()
-          } else if (scrap=== 'csv') {
+          } else if (scrap === 'csv') {
             await scrapService.scrapCSVTestService()
           } else if (scrap === 'pdf') {
             await scrapService.scrapPDFTestService()

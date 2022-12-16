@@ -114,7 +114,7 @@ const own = {
   titles: {
     menus: {
       settingGeneral: '일반',
-      SettingScrap: 'scrap',
+      SettingScrap: '스크랩',
       SettingSchedule: '스케쥴',
       settingVersion: '버전',
     },
@@ -126,6 +126,7 @@ const own = {
       downloadPath: '다운로드 경로',
       labels: {
         autoLaunch: '컴퓨터 부팅시 자동 시작',
+        trayOnLaunch: '프로그램 오픈시 Tray 모드로 열기',
         trayExit: '윈도우 종료시 Tray 모드 활성화',
       }
     },
@@ -133,6 +134,19 @@ const own = {
       hour: '시',
       minute: '분',
       day: '요일',
+      isOn: '활성화',
+      scraps: '이벤트',
+      exts: {
+        time: 'time',
+      },
+    },
+    scrap: {
+      xlsx: '액셀',
+      csv: 'csv',
+      pdf: 'pdf',
+      pdfWithTemplate: 'pdf 와 템플릿',
+      txt: 'txt',
+      images: '이미지',
     }
   },
   views: {
@@ -145,7 +159,12 @@ const own = {
     settings: {
       general: {
         language: '언어'
-      }
+      },
+      scrap: {
+        titles: {
+          fileNames: '파일 명'
+        }
+      },
     }
   },
 }

@@ -21,6 +21,12 @@
             :label="t('types.appSetting.labels.autoLaunch')"
             @update:model-value="handleAutoLaunch"
           />
+          <!-- Tray on Launch -->
+          <q-checkbox
+            v-model="trayOnLaunch"
+            :label="t('types.appSetting.labels.trayOnLaunch')"
+            @update:model-value="handleTrayOnLaunch"
+          />
           <!-- Tray exit -->
           <q-checkbox
             v-model="trayExit"
@@ -80,17 +86,23 @@ const { invoke } = useElectron()
 const appSettingStore = useAppSettingStore()
 
 const autoLaunch = ref(false)
+const trayOnLaunch = ref(false)
 const trayExit = ref(false)
 const downloadPath = ref('')
 
 onBeforeMount(() => {
   autoLaunch.value = appSettingStore.autoLaunch
+  trayOnLaunch.value = appSettingStore.trayOnLaunch
   trayExit.value = appSettingStore.trayExit
   downloadPath.value = appSettingStore.downloadPath
 })
 
 const handleAutoLaunch = async () => {
   appSettingStore.setState(await invoke<Partial<AppSetting>>('set-app-setting', { autoLaunch: autoLaunch.value }))
+}
+
+const handleTrayOnLaunch = async () => {
+  appSettingStore.setState(await invoke<Partial<AppSetting>>('set-app-setting', { trayOnLaunch: trayOnLaunch.value }))
 }
 
 const handleTrayExit = async () => {

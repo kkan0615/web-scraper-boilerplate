@@ -10,7 +10,7 @@
         <div
           class="text-h6 text-capitalize"
         >
-          File names
+          {{ t('views.settings.scrap.titles.fileNames') }}
         </div>
         <div
           class="flex column q-col-gutter-md"

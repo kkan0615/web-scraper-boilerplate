@@ -143,74 +143,6 @@
         >
           Try again after {{ seconds }} seconds
         </div>
-        <!--        <div-->
-        <!--          class="q-mt-sm"-->
-        <!--        >-->
-        <!--          <div-->
-        <!--            class="row q-gutter-sm justify-center"-->
-        <!--          >-->
-        <!--            <div>-->
-        <!--              <q-btn-->
-        <!--                flat-->
-        <!--                round-->
-        <!--                @click="exportData('pdf')"-->
-        <!--              >-->
-        <!--                <Icon-->
-        <!--                  class="text-h5"-->
-        <!--                  icon="fluent:document-pdf-16-regular"-->
-        <!--                />-->
-        <!--                <q-tooltip>-->
-        <!--                  {{ t('tooltips.fileExts.downloads.pdf') }}-->
-        <!--                </q-tooltip>-->
-        <!--              </q-btn>-->
-        <!--            </div>-->
-        <!--            <div>-->
-        <!--              <q-btn-->
-        <!--                flat-->
-        <!--                round-->
-        <!--                @click="exportData('csv')"-->
-        <!--              >-->
-        <!--                <Icon-->
-        <!--                  class="text-h5"-->
-        <!--                  icon="iwwa:file-csv"-->
-        <!--                />-->
-        <!--                <q-tooltip>-->
-        <!--                  {{ t('tooltips.fileExts.downloads.csv') }}-->
-        <!--                </q-tooltip>-->
-        <!--              </q-btn>-->
-        <!--            </div>-->
-        <!--            <div>-->
-        <!--              <q-btn-->
-        <!--                flat-->
-        <!--                round-->
-        <!--                @click="exportData('excel')"-->
-        <!--              >-->
-        <!--                <Icon-->
-        <!--                  class="text-h6"-->
-        <!--                  icon="uiw:file-excel"-->
-        <!--                />-->
-        <!--                <q-tooltip>-->
-        <!--                  {{ t('tooltips.fileExts.downloads.xlsx') }}-->
-        <!--                </q-tooltip>-->
-        <!--              </q-btn>-->
-        <!--            </div>-->
-        <!--            <div>-->
-        <!--              <q-btn-->
-        <!--                flat-->
-        <!--                round-->
-        <!--                @click="exportData('txt')"-->
-        <!--              >-->
-        <!--                <Icon-->
-        <!--                  class="text-h6"-->
-        <!--                  icon="icon-park-outline:file-txt-one"-->
-        <!--                />-->
-        <!--                <q-tooltip>-->
-        <!--                  {{ t('tooltips.fileExts.downloads.txt') }}-->
-        <!--                </q-tooltip>-->
-        <!--              </q-btn>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </div>-->
       </div>
     </q-page-container>
   </q-page>
@@ -220,7 +152,7 @@ import { onBeforeUnmount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useElectron } from '@/utils/useElectron'
 import { MaxWaitingSeconds } from '@/types/timer'
-import { Icon } from '@iconify/vue'
+import { ScrapKey } from '@/types/scrap'
 
 const { t } = useI18n()
 const { invoke } = useElectron()
@@ -235,14 +167,14 @@ onBeforeUnmount(() => {
   destroyTimer()
 })
 
-const handleScrapping = async (type: 'xlsx' | 'csv' | 'pdf' | 'pdfWithTemplate' | 'txt' | 'images') => {
+const handleScrapping = async (type: ScrapKey) => {
   try {
     loading.value = true
     errorMsg.value = ''
     createTimer()
     if (type === 'xlsx') {
       await invoke('scrap-to-xlsx-test')
-    } else if (type=== 'csv') {
+    } else if (type === 'csv') {
       await invoke('scrap-to-csv-test')
     } else if (type === 'pdf') {
       await invoke('scrap-pdf-test')

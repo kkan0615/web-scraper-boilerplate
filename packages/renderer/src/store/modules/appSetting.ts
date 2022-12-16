@@ -1,4 +1,3 @@
-// stores/counter.js
 import { defineStore } from 'pinia'
 import { AppSetting } from '@/types/appSetting'
 
@@ -8,6 +7,7 @@ export const useAppSettingStore = defineStore('appSetting', {
   state: (): State => {
     return {
       autoLaunch: false,
+      trayOnLaunch: false,
       trayExit: true,
       downloadPath: '',
       language: '',
@@ -16,6 +16,7 @@ export const useAppSettingStore = defineStore('appSetting', {
   actions: {
     setState(args: AppSetting) {
       this.autoLaunch = args.autoLaunch
+      this.trayOnLaunch = args.trayOnLaunch
       this.trayExit = args.trayExit
       this.downloadPath = args.downloadPath
       this.language = args.language

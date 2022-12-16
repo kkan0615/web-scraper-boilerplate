@@ -99,18 +99,9 @@ Handle export to file
 
 # Todo
 ## Main
-- Scrapping Examples
 - Export
   - video
-- Schedules
-  - Run specific scrap based on schedule 
 - Util
   - Notification with image
 ## Renderer
 - Move schedule logic to store
-- setting page
-  - Schedule
-    - Add what scrap will do on this schedule
-- Change title
-  - Taskbar
-  - index.html

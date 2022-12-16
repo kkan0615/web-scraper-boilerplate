@@ -13,6 +13,10 @@ export const getAppSetting = () => {
     appSetting.autoLaunch = false
   }
 
+  if (appSetting.trayOnLaunch === undefined) {
+    appSetting.trayOnLaunch = false
+  }
+
   if (appSetting.trayExit === undefined) {
     appSetting.trayExit = false
   }

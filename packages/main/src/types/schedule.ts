@@ -1,10 +1,12 @@
+import { ScrapKey } from './scrap'
+
 export interface Schedule {
   id: string
   hour: number // 0 to 23
   minute: number // 0 to 59
   day: number // 1 is Monday 7 is Sunday
   isOn: boolean
-  scraps: string[],
+  scraps: ScrapKey[],
   isDefault: boolean
 }
 

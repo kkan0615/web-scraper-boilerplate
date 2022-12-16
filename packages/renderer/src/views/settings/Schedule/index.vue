@@ -96,16 +96,14 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useScrapSettingStore } from '@/store/modules/scrapSetting'
+import { QTableColumn, useQuasar } from 'quasar'
 import { useElectron } from '@/utils/useElectron'
 import { DayMap, Schedule } from '@/types/schedule'
-import { QTableColumn, useQuasar } from 'quasar'
 import FormDialog from '@/views/settings/Schedule/components/FormDialog.vue'
 
 const { t } = useI18n()
 const $q = useQuasar()
 const { invoke } = useElectron()
-const scrapSettingStore = useScrapSettingStore()
 
 const schedules = ref<Schedule[]>([])
 const columns: QTableColumn[] = [
@@ -116,26 +114,33 @@ const columns: QTableColumn[] = [
   },
   {
     name: 'time',
-    label: 'Time',
+    label: t('types.schedule.exts.time'),
     align: 'left',
     field: (row: Schedule) => `${row.hour}:${row.minute}`,
   },
   {
     name: 'day',
-    label: 'Day',
+    label: t('types.schedule.day'),
     align: 'left',
     field: (row: Schedule) => t(`commons.labels.dayOfWeek.${DayMap[row.day]}`).charAt(0).toUpperCase()
         + t(`commons.labels.dayOfWeek.${DayMap[row.day]}`).slice(1),
   },
   {
+    name: 'day',
+    label: t('types.schedule.scraps'),
+    align: 'left',
+    field: (row: Schedule) => row.scraps.map(scrap => t(`types.scrap.${scrap}`)).join(', '),
+  },
+  {
     name: 'ison',
-    label: 'On',
+    label: t('types.schedule.isOn'),
     align: 'right',
     field: 'isOn'
   },
   {
     name: 'action',
-    label: 'Action',
+    label: t('commons.labels.action'),
+
     align: 'right',
     field: ''
   },
@@ -152,6 +157,9 @@ onBeforeMount(async () => {
   await loadSchedules()
 })
 
+/**
+ * Load all schedules from electron store
+ */
 const loadSchedules = async () => {
   try {
     schedules.value = await invoke('get-schedules')
@@ -161,6 +169,11 @@ const loadSchedules = async () => {
   }
 }
 
+/**
+ * Update isOn
+ * @param id - schedule id
+ * @param bool - current value
+ */
 const onUpdateIsOn = async (id: string, bool: boolean) => {
   try {
     await invoke('update-schedule', {
@@ -173,6 +186,10 @@ const onUpdateIsOn = async (id: string, bool: boolean) => {
   }
 }
 
+/**
+ * Delete the schedule
+ * @param id - schedule id
+ */
 const handleDelete = async (id: string) => {
   try {
     $q.dialog({
