@@ -3,11 +3,16 @@
 # :rocket: Getting started
 ## Dev
 ```shell
-yarn dev
+yarn run dev
 ```
 ## Build
+### Window
 ```shell
-yarn build
+yarn run build:window
+```
+## Release
+```shell
+yarn run release
 ```
 
 # Dependencies
@@ -18,7 +23,6 @@ yarn build
 ## Electron
 - electron-builder: Builder
 - electron-is-dev: Check development
-- electron-updater: auto-update
 
 ## Renderer
 - sass/scss
@@ -91,12 +95,6 @@ Handle scrap result
 ## main/utils/export.ts
 Handle export to file
 
-# Refs
-## Electron
-- [cawa-93](https://github.com/cawa-93/vite-electron-builder)
-- [blog 1](https://blog.totominc.io/blog/electron-with-typescript-and-vite-as-a-build-system)
-- [twstyled](https://github.com/twstyled/electron-vite-react)
-
 # Todo
 ## Main
 - Export
@@ -105,3 +103,7 @@ Handle export to file
   - Notification with image
 ## Renderer
 - Move schedule logic to store
+- Download instruction
+- Add snackbars
+## Other
+- Prepare Instruction by language

@@ -163,7 +163,6 @@ onBeforeMount(async () => {
 const loadSchedules = async () => {
   try {
     schedules.value = await invoke('get-schedules')
-    console.log(schedules.value)
   } catch (e) {
     console.error(e)
   }
@@ -199,6 +198,10 @@ const handleDelete = async (id: string) => {
       persistent: true
     }).onOk(async () => {
       await invoke('delete-schedule', id)
+      $q.notify({
+        type: 'positive',
+        message: t('commons.messages.saved')
+      })
       await loadSchedules()
     }).onCancel(() => {
       // console.log('Cancel')
@@ -207,6 +210,10 @@ const handleDelete = async (id: string) => {
     })
   } catch (e) {
     console.error(e)
+    $q.notify({
+      type: 'positive',
+      message: t('commons.messages.saveFailed')
+    })
   }
 }
 </script>

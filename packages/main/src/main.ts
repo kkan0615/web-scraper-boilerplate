@@ -42,8 +42,6 @@ app.on('activate', () => {
 app
   .whenReady()
   .then(async () => {
-    console.log(app.getPath('userData'))
-
     // Initialize schedules
     initSchedules()
     await createTray()
