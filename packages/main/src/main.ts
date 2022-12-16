@@ -42,10 +42,13 @@ app.on('activate', () => {
 app
   .whenReady()
   .then(async () => {
+    const appSetting = getAppSetting()
     // Initialize schedules
     initSchedules()
     await createTray()
-    await createAppWindow()
+    // Open Window when trayOnLaunch is false
+    if (!appSetting.trayOnLaunch)
+      await createAppWindow()
     await autoUpdater.checkForUpdates()
   })
   .catch((e) => console.error('Failed to create window:', e))
